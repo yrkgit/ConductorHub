@@ -9,7 +9,7 @@ public class FrameToDeviceSender {
 
     public void sendToDevice() {
         try {
-            socket = new Socket("10.0.2.16", 7801);
+            socket = new Socket("192.168.0.13", 7801);
             printWriter = new PrintWriter(socket.getOutputStream());
             printWriter.write(reply);
             printWriter.flush();
