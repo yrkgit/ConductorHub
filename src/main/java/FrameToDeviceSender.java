@@ -3,9 +3,9 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 public class FrameToDeviceSender {
-    Socket socket;
-    PrintWriter printWriter;
-    String reply= "Reply from PC";
+    private Socket socket;
+    private PrintWriter printWriter;
+    private String reply= "Reply from PC";
 
     public void sendToDevice() {
         try {
