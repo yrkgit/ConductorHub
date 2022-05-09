@@ -5,11 +5,11 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class ConductorServer {
-    static Socket socket;
-    static ServerSocket serverSocket;
-    static InputStreamReader inputStreamReader;
-    static BufferedReader bufferedReader;
-    static String message;
+   private static Socket socket;
+    private static ServerSocket serverSocket;
+    private static InputStreamReader inputStreamReader;
+    private static BufferedReader bufferedReader;
+    private static String message;
 
 
     public static void main(String[] args) {
