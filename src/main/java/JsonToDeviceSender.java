@@ -2,7 +2,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class JsonToDeviceSender implements FrameSender {
+public class JsonToDeviceSender implements SendableFrame {
     private Socket socket;
     private PrintWriter printWriter;
     private String reply= "Reply from PC";

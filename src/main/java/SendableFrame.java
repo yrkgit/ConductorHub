@@ -1,4 +1,4 @@
 @FunctionalInterface
-public interface FrameSender {
+public interface SendableFrame {
     void sendFrame();
 }

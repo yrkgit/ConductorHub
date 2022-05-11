@@ -1,8 +1,8 @@
 public class FrameToDeviceSender {
 
-    private FrameSender frame;
+    private SendableFrame frame;
 
-    public FrameToDeviceSender(FrameSender frame) {
+    public FrameToDeviceSender(SendableFrame frame) {
         this.frame = frame;
     }
 
