@@ -37,8 +37,8 @@ public class ConductorServer implements Runnable {
                 bufferedReader = new BufferedReader(inputStreamReader);
                 message = bufferedReader.readLine();
                 System.out.println(message);
-                //TODO Do usunięcia
-                ConductorHub.setResponse();
+
+                ConductorHub.sendResponse();
             }
         } catch (IOException e) {
             e.printStackTrace();
