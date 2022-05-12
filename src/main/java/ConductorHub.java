@@ -13,10 +13,14 @@ public class ConductorHub {
 
     public static void sendResponse(){
 
-        JsonCreator serializedFrame = new JsonCreator();
+        JsonSerializer serializedFrame = new JsonSerializer();
         Sender frameSender = new StringToDeviceSender();
-        frameSender.sendFrame(serializedFrame.createJson(new FrameLogRequest("1.0", FrameTypes.LOGREQUEST, Instant.now().getEpochSecond(), "Jan", "haslo", "10.1.1.1")));
-
-
+        frameSender.sendFrame(serializedFrame.createJson(new LogRequestFrame(
+                "1.0",
+                FrameTypes.LOGREQUEST,
+                Instant.now().getEpochSecond(),
+                "Jan",
+                "haslo",
+                "10.1.1.1")));
     }
 }

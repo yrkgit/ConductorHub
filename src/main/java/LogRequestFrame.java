@@ -1,9 +1,9 @@
-public class FrameLogRequest extends Frame implements Serializable{
+public class LogRequestFrame extends Frame implements Serializable{
     private String user;
     private String pass;
     private String ipAddress;
 
-    public FrameLogRequest(String appVersion, FrameTypes typeOfFrame, long utc, String user, String pass, String ipAddress) {
+    public LogRequestFrame(String appVersion, FrameTypes typeOfFrame, long utc, String user, String pass, String ipAddress) {
         super(appVersion, typeOfFrame, utc);
         setUser(user);
         setPass(pass);
