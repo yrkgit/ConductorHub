@@ -4,16 +4,15 @@ import java.net.Socket;
 
 public class StringToDeviceSender implements Sender {
 
-    private Sender frame;
     private Socket socket;
     private PrintWriter printWriter;
 
 
     @Override
     public void sendFrame(String content) {
-        System.out.println("Sending to device");
+        System.out.println("Sending to device: "+ content);
         try {
-            socket = new Socket("192.168.0.13", 7801);
+            socket = new Socket("10.0.2.16", 7801);
             printWriter = new PrintWriter(socket.getOutputStream());
             printWriter.write(content);
             printWriter.flush();
