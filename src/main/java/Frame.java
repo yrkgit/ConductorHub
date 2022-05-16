@@ -6,10 +6,10 @@ public abstract class Frame {
 
     protected long utc;
 
-    public Frame(String appVersion, FrameTypes typeOfFrame, long utc) {
-        setAppVersion(appVersion);
-        setFrameType(typeOfFrame);
-        setUtc(utc);
+    public Frame(String appVersion, FrameTypes frameType, long utc) {
+        this.appVersion = appVersion;
+        this.frameType = frameType;
+        this.utc = utc;
     }
 
     public String getAppVersion() {
