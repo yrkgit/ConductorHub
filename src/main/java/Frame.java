@@ -1,10 +1,46 @@
-import java.time.Instant;
 
-public abstract class Frame {
-    protected String appVersion;
-    protected FrameTypes frameType;
+public class Frame {
+    private String appVersion;
+    private FrameTypes frameType;
 
-    protected long utc;
+    private long utc;
+
+    public <T extends Builder<T>> Frame(Builder<T> tBuilder) {
+    }
+
+    public static Builder builder(){
+        return new Builder(){
+            public Builder getThis(){
+                return this;
+            }
+        };
+    }
+public abstract static class Builder<T extends Builder<T>>{
+    private String appVersion;
+    private FrameTypes frameType;
+
+    private long utc;
+
+    public abstract T getThis();
+
+    public T appVersion(String appVersion){
+        this.appVersion=appVersion;
+        return this.getThis();
+    }
+    public T frameType(FrameTypes frameType){
+        this.frameType=frameType;
+        return this.getThis();
+    }
+    public T utc(long utc){
+        this.utc=utc;
+        return this.getThis();
+    }
+    public Frame build(){
+        return new Frame(this);
+    }
+
+
+}
 
     public Frame(String appVersion, FrameTypes frameType, long utc) {
         this.appVersion = appVersion;
@@ -12,31 +48,4 @@ public abstract class Frame {
         this.utc = utc;
     }
 
-    public String getAppVersion() {
-        return appVersion;
-    }
-
-    public void setAppVersion(String appVersion) {
-        this.appVersion = appVersion;
-    }
-
-    public FrameTypes getFrameType() {
-        return frameType;
-    }
-
-    public void setFrameType(FrameTypes frameType) {
-        this.frameType = frameType;
-    }
-
-    public long getUtc() {
-        return utc;
-    }
-
-    public void setUtc(long utc) {
-        this.utc = utc;
-    }
-
-    public long getCurrentDateInMs(){
-        return Instant.now().getEpochSecond();
-    }
 }

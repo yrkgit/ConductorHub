@@ -22,5 +22,12 @@ public class ConductorHub {
                 "Jan",
                 "haslo",
                 "10.1.1.1")));
+
+        LogRequestFrame logRequestFrame= LogRequestFrame.builder()
+                .appVersion("2.0")
+                .frameType(FrameTypes.LOGRESPONSE)
+                .utc(Instant.now().getEpochSecond())
+                        .
+
     }
 }
