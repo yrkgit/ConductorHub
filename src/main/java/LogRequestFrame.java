@@ -5,9 +5,9 @@ public class LogRequestFrame extends Frame implements Serializable{
 
     public LogRequestFrame(String appVersion, FrameTypes typeOfFrame, long utc, String user, String pass, String ipAddress) {
         super(appVersion, typeOfFrame, utc);
-        setUser(user);
-        setPass(pass);
-        setIpAddress(ipAddress);
+        this.user=user;
+        this.pass=pass;
+        this.ipAddress=ipAddress;
     }
 
     public String getUser() {

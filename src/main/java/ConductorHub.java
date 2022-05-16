@@ -17,7 +17,7 @@ public class ConductorHub {
         Sender frameSender = new StringToDeviceSender();
         frameSender.sendFrame(serializedFrame.createJson(new LogRequestFrame(
                 "1.0",
-                FrameTypes.LOGREQUEST,
+                FrameTypes.LOGRESPONSE,
                 Instant.now().getEpochSecond(),
                 "Jan",
                 "haslo",
