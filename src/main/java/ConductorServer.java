@@ -9,8 +9,9 @@ public class ConductorServer implements Runnable {
     private static ServerSocket serverSocket;
     private static InputStreamReader inputStreamReader;
     private static BufferedReader bufferedReader;
-    private static String message;
+    private static String content;
     private boolean isServerRunning;
+    private JsonDeserializer deserializer;
 
 
     public ConductorServer() {
@@ -28,6 +29,7 @@ public class ConductorServer implements Runnable {
 
     @Override
     public void run() {
+        deserializer=new JsonDeserializer();
         try {
             serverSocket = new ServerSocket(7800);
             while (isServerRunning) {
@@ -35,10 +37,12 @@ public class ConductorServer implements Runnable {
                 socket = serverSocket.accept();
                 inputStreamReader = new InputStreamReader(socket.getInputStream());
                 bufferedReader = new BufferedReader(inputStreamReader);
-                message = bufferedReader.readLine();
-                System.out.println(message);
+                content = bufferedReader.readLine();
 
-                ConductorHub.sendResponse();
+
+                System.out.println(content);
+                deserializer.deserializeJsonToFrameObject(content);
+
             }
         } catch (IOException e) {
             e.printStackTrace();
