@@ -12,7 +12,8 @@ public class StringToDeviceSender implements Sender {
     public void sendFrame(String content) {
         System.out.println("Sending to device: "+ content);
         try {
-            socket = new Socket("10.0.2.16", 7801);
+            //TODO capture and store destination ip from LOGREQUEST
+            socket = new Socket("192.168.0.13", 7801);
             printWriter = new PrintWriter(socket.getOutputStream());
             printWriter.write(content);
             printWriter.flush();

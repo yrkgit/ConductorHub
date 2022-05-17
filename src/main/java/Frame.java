@@ -54,12 +54,4 @@ public class Frame {
         this.utc = utc;
     }
 
-    @Override
-    public String toString() {
-        return "Frame{" +
-                "appVersion='" + appVersion + '\'' +
-                ", frameType=" + frameType +
-                ", utc=" + utc +
-                '}';
-    }
 }
