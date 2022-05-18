@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.ConnectException;
 import java.net.Socket;
 
 public class StringToDeviceSender implements Sender {
@@ -7,10 +8,9 @@ public class StringToDeviceSender implements Sender {
     private Socket socket;
     private PrintWriter printWriter;
 
-
     @Override
     public void sendFrame(String content) {
-        System.out.println("Sending to device: "+ content);
+        System.out.println("Try to send to device: "+ content);
         try {
             //TODO capture and store destination ip from LOGREQUEST
             socket = new Socket("192.168.0.13", 7801);
@@ -19,8 +19,11 @@ public class StringToDeviceSender implements Sender {
             printWriter.flush();
             printWriter.close();
             socket.close();
-            System.out.println("Send " + content);
-        } catch (IOException e) {
+            System.out.println("Send " + content +" to device");
+        }catch(ConnectException connectException){
+            System.out.println("Can't send frame to device");
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
 

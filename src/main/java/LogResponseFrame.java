@@ -1,4 +1,4 @@
-public class LogResponseFrame extends Frame  implements Serializable{
+public class LogResponseFrame extends Frame {
     private LogResponseTypes permission;
 
 
@@ -32,8 +32,15 @@ public class LogResponseFrame extends Frame  implements Serializable{
         }
     }
 
+
+
     @Override
-    public String getFrameTypeString() {
-        return getFrameType().toString();
+    public String toString() {
+        return "LogResponseFrame{" +
+                "permission=" + permission +
+                ", appVersion='" + appVersion + '\'' +
+                ", frameType=" + frameType +
+                ", utc=" + utc +
+                '}';
     }
 }

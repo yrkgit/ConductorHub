@@ -8,20 +8,19 @@ public class ConductorHub {
         //Run socketListener to receive packets from remote Conductor
         Thread serverThread = new Thread(new ConductorServer());
         serverThread.run();
-
     }
 
-    public static void sendResponse(){
+    public static void sendResponse() {
 
         JsonSerializer serializedFrame = new JsonSerializer();
         Sender frameSender = new StringToDeviceSender();
-        LogResponseFrame logResponseFrame= LogResponseFrame.builder()
+        LogResponseFrame logResponseFrame = LogResponseFrame.builder()
                 .appVersion("1.0")
                 .frameType(FrameTypes.LOGRESPONSE)
                 .utc(Instant.now().getEpochSecond())
                 .permission(LogResponseTypes.GRANTED)
                 .build();
-
+        System.out.println("świeżo stworzona rameczka " + logResponseFrame.toString());
         frameSender.sendFrame(serializedFrame.createJson(logResponseFrame));
 
     }

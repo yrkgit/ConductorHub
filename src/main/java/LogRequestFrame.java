@@ -1,4 +1,4 @@
-public class LogRequestFrame extends Frame implements Serializable{
+public class LogRequestFrame extends Frame{
     private String user;
     private String pass;
     private String ipAddress;
@@ -55,9 +55,4 @@ public class LogRequestFrame extends Frame implements Serializable{
     public String getIpAddress() {
         return ipAddress;
     }
-    @Override
-    public String getFrameTypeString() {
-        return getFrameType().toString();
-    }
-
 }

@@ -1,24 +1,25 @@
 
 public class Frame {
-    private String appVersion;
-    private FrameTypes frameType;
+    protected String appVersion;
+    protected FrameTypes frameType;
 
-    private long utc;
+    protected long utc;
 
-    public <T extends Builder<T>> Frame(Builder<T> tBuilder) {
+    protected Frame(Builder<?> builder) {
+        this.appVersion = builder.appVersion;
+        this.frameType = builder.frameType;
+        this.utc = builder.utc;
     }
 
     public static Builder builder() {
         return new Builder() {
+            @Override
             public Builder getThis() {
                 return this;
             }
         };
     }
 
-    public FrameTypes getFrameType() {
-        return frameType;
-    }
 
     public abstract static class Builder<T extends Builder<T>> {
         private String appVersion;
@@ -48,10 +49,14 @@ public class Frame {
         }
     }
 
-    public Frame(String appVersion, FrameTypes frameType, long utc) {
-        this.appVersion = appVersion;
-        this.frameType = frameType;
-        this.utc = utc;
-    }
 
+
+    @Override
+    public String toString() {
+        return "Frame{" +
+                "appVersion='" + appVersion + '\'' +
+                ", frameType=" + frameType +
+                ", utc=" + utc +
+                '}';
+    }
 }
