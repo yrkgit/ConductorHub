@@ -39,7 +39,6 @@ public class ConductorServer implements Runnable {
                 bufferedReader = new BufferedReader(inputStreamReader);
                 content = bufferedReader.readLine();
 
-
                 System.out.println("Captured content from socket "+content);
                 deserializer.deserializeJsonToFrameObject(content);
 
