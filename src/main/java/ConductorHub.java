@@ -10,7 +10,7 @@ public class ConductorHub {
         serverThread.run();
     }
 
-    public static void sendResponse() {
+    public static void sendResponse(String destinationIpAddress) {
 
         JsonSerializer serializedFrame = new JsonSerializer();
         Sender frameSender = new StringToDeviceSender();
@@ -21,7 +21,7 @@ public class ConductorHub {
                 .permission(LogResponseTypes.GRANTED)
                 .build();
         System.out.println("świeżo stworzona rameczka " + logResponseFrame.toString());
-        frameSender.sendFrame(serializedFrame.createJson(logResponseFrame));
+        frameSender.sendFrame(serializedFrame.createJson(logResponseFrame),destinationIpAddress);
 
     }
 }

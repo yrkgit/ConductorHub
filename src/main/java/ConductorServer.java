@@ -27,14 +27,14 @@ public class ConductorServer extends SocketListener implements Runnable {
     public void run() {
         deserializer=new JsonDeserializer();
         try {
-            serverSocket = new ServerSocket(7800);
+
             while (isServerRunning) {
                 System.out.println("Start receiving packets... ");
-                content=startSocketListener(serverSocket);
+                content=startSocketListener();
                 System.out.println("Captured content from socket "+content);
                 deserializer.deserializeJsonToFrameObject(content);
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

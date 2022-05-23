@@ -12,7 +12,7 @@ public class JsonDeserializer {
         if (frame.frameType.equals(FrameTypes.LOGREQUEST)){
             LogRequestFrame receivedFrame = gson.fromJson(content, LogRequestFrame.class);
             System.out.println(receivedFrame.getUser()+ " is trying to connect");
-            ConductorHub.sendResponse();
+            ConductorHub.sendResponse(receivedFrame.getIpAddress());
             return receivedFrame;
         }
 
