@@ -1,3 +1,5 @@
+/** Class LogRequestFrame represents frame send by remote device to authenticate user and subscribe to ConductorHub if permission granted*/
+
 public class LogRequestFrame extends Frame{
     private String user;
     private String pass;

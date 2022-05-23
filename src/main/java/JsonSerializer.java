@@ -1,3 +1,5 @@
+/** Class to create String of Json from passed object of Frame type */
+
 import com.google.gson.Gson;
 
 public class JsonSerializer {

@@ -1,14 +1,10 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.ServerSocket;
-import java.net.Socket;
+/** Runnable class that opening socket (by invoking SocketListener) and starting listening to communication from remote hosts. When get response from SocketListener pass it to JSON deserializer */
 
-public class ConductorServer implements Runnable {
-    private static Socket socket;
+import java.io.IOException;
+import java.net.ServerSocket;
+
+public class ConductorServer extends SocketListener implements Runnable {
     private static ServerSocket serverSocket;
-    private static InputStreamReader inputStreamReader;
-    private static BufferedReader bufferedReader;
     private static String content;
     private boolean isServerRunning;
     private JsonDeserializer deserializer;
@@ -34,14 +30,9 @@ public class ConductorServer implements Runnable {
             serverSocket = new ServerSocket(7800);
             while (isServerRunning) {
                 System.out.println("Start receiving packets... ");
-                socket = serverSocket.accept();
-                inputStreamReader = new InputStreamReader(socket.getInputStream());
-                bufferedReader = new BufferedReader(inputStreamReader);
-                content = bufferedReader.readLine();
-
+                content=startSocketListener(serverSocket);
                 System.out.println("Captured content from socket "+content);
                 deserializer.deserializeJsonToFrameObject(content);
-
             }
         } catch (IOException e) {
             e.printStackTrace();

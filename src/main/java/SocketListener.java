@@ -1,3 +1,5 @@
+/** Class design to open and listen socket connection */
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -13,9 +15,9 @@ public class SocketListener {
     private String message;
 
 
-    public String startSocketListener() {
+    public String startSocketListener(ServerSocket serverSocket) {
         try {
-            serverSocket = new ServerSocket(7800);
+            this.serverSocket=serverSocket;
 
             socket = serverSocket.accept();
             inputStreamReader = new InputStreamReader(socket.getInputStream());

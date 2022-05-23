@@ -1,3 +1,5 @@
+/** Class for sending String (content) to remote socket */
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ConnectException;
