@@ -34,8 +34,6 @@ public class LogResponseFrame extends Frame {
         }
     }
 
-
-
     @Override
     public String toString() {
         return "LogResponseFrame{" +

@@ -12,7 +12,7 @@ public class StringToDeviceSender implements Sender {
 
     @Override
     public void sendFrame(String content, String destinationIpAddress) {
-        System.out.println("Try to send to device: "+ content);
+        System.out.println("Try to send to: "+destinationIpAddress +" "+ content);
         try {
             //TODO capture and store destination ip from LOGREQUEST
             socket = new Socket(destinationIpAddress, 7801);
