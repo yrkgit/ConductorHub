@@ -1,3 +1,3 @@
 public enum LogResponseTypes {
-    GRANTED, DENIED,DATA;
+    GRANTED, DENIED;
 }
