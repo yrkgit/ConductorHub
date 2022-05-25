@@ -4,11 +4,19 @@ public class DataFrame extends Frame{
     private String nextStop;
     private String currentSpeed;
 
+    private int passengerStats;
+    private int boardingStats;
+    private int unBoardingStats;
+
+
     public DataFrame(Builder builder) {
         super(builder);
         this.currentStop = builder.currentStop;
         this.nextStop = builder.nextStop;
         this.currentSpeed = builder.currentSpeed;
+        this.passengerStats = builder.passengerStats;
+        this.boardingStats = builder.boardingStats;
+        this.unBoardingStats = builder.unBoardingStats;
     }
 
     public static Builder builder() {
@@ -19,6 +27,10 @@ public class DataFrame extends Frame{
         private String currentStop;
         private String nextStop;
         private String currentSpeed;
+
+        private int passengerStats;
+        private int boardingStats;
+        private int unBoardingStats;
 
         @Override
         public Builder getThis() {
@@ -39,22 +51,36 @@ public class DataFrame extends Frame{
             this.currentSpeed = currentSpeed;
             return this;
         }
+        public Builder passengerStats(int passengerStats) {
+            this.passengerStats = passengerStats;
+            return this;
+        }
+        public Builder boardingStats(int boardingStats) {
+            this.boardingStats = boardingStats;
+            return this;
+        }
+        public Builder unBoardingStats(int unBoardingStats) {
+            this.unBoardingStats = unBoardingStats;
+            return this;
+        }
 
         public DataFrame build() {
             return new DataFrame(this);
         }
     }
 
-    public String getCurrentStop() {
-        return currentStop;
+    @Override
+    public String toString() {
+        return "DataFrame{" +
+                "currentStop='" + currentStop + '\'' +
+                ", nextStop='" + nextStop + '\'' +
+                ", currentSpeed='" + currentSpeed + '\'' +
+                ", passengerStats=" + passengerStats +
+                ", boardingStats=" + boardingStats +
+                ", unBoardingStats=" + unBoardingStats +
+                ", appVersion='" + appVersion + '\'' +
+                ", frameType=" + frameType +
+                ", utc=" + utc +
+                '}';
     }
-
-    public String getNextStop() {
-        return nextStop;
-    }
-
-    public String getCurrentSpeed() {
-        return currentSpeed;
-    }
-
 }

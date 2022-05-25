@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class SubscribeDevice {
+public class DeviceSubscriber {
     private static ArrayList<String> listOfDevicesIps = new ArrayList<String>();
 
     public static void addDeviceIp(String deviceIp){

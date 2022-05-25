@@ -1,4 +1,3 @@
-import java.time.Instant;
 import java.util.concurrent.TimeUnit;
 
 public class ConductorHub {
@@ -14,16 +13,7 @@ public class ConductorHub {
         Thread serverThread = new Thread(new ConductorServer());
         serverThread.start();
 
-        //TODO do poprawy
-        while (SubscribeDevice.getNumberOfDevicesIps() > 0) {
-            System.out.println("Próba wysłania ramki danych");
-            DataSender.sendData(SubscribeDevice.getListOfDevicesIps().get(0));
-            try {
-                TimeUnit.SECONDS.sleep(10);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
     }
+
+
 }
