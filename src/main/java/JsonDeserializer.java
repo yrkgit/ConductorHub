@@ -14,7 +14,6 @@ public class JsonDeserializer {
         if (frame.frameType.equals(FrameTypes.LOGREQUEST)){
             return deserializeToLogRequestFrame(content);
         }
-
         return frame;
     }
 

@@ -43,4 +43,8 @@ public class LogResponseFrame extends Frame {
                 ", utc=" + utc +
                 '}';
     }
+
+    public LogResponseTypes getPermission() {
+        return permission;
+    }
 }

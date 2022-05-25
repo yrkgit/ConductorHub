@@ -11,11 +11,10 @@ public class StringToDeviceSender implements Sender {
     private PrintWriter printWriter;
 
     @Override
-    public void sendFrame(String content, String destinationIpAddress) {
+    public void sendFrame(String content, String destinationIpAddress, int destinationPortNumber) {
         System.out.println("Try to send to: "+destinationIpAddress +" "+ content);
         try {
-            //TODO capture and store destination ip from LOGREQUEST
-            socket = new Socket(destinationIpAddress, 7801);
+            socket = new Socket(destinationIpAddress, destinationPortNumber);
             printWriter = new PrintWriter(socket.getOutputStream());
             printWriter.write(content);
             printWriter.flush();
