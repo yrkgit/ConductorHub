@@ -1,10 +1,10 @@
 import java.time.Instant;
 
-public class AccessResponseSender {
+public class LogResponseFrameCreator {
     //TODO - move port number to config
     private static final int destinationPortNumber = 7801;
 
-    public static void sendAccessResponse(String destinationIpAddress) {
+    public static void createResponseFrame(String destinationIpAddress) {
         JsonSerializer serializedFrame = new JsonSerializer();
         Sender frameSender = new StringToDeviceSender();
         LogResponseFrame logResponseFrame = LogResponseFrame.builder()
@@ -18,7 +18,7 @@ public class AccessResponseSender {
         if (logResponseFrame.getPermission().equals(LogResponseTypes.GRANTED)) {
             DeviceSubscriber.addDeviceIp(destinationIpAddress);
             System.out.println("Dodano urządzenie: " + destinationIpAddress + "Ilość subskrybentów IP: " + DeviceSubscriber.getNumberOfDevicesIps());
-            DataSender.startSendingData();
+            DataFrameCreator.startSendingData();
         }
     }
 }

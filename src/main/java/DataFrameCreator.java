@@ -1,7 +1,7 @@
 import java.time.Instant;
 import java.util.concurrent.TimeUnit;
 
-public class DataSender {
+public class DataFrameCreator {
     //TODO - move port number to config
     private static final int destinationPortNumber =7802;
     private static String currentStop;
@@ -12,6 +12,7 @@ public class DataSender {
     private static int boardingStats;
     private static int unBoardingStats;
 
+    //TODO - do testów usunąć
     static {
         currentStop="Bydgoszcz Główna";
         nextStop="Bydgoszcz Wschód";
@@ -22,17 +23,6 @@ public class DataSender {
         unBoardingStats=14;
     }
 
-    public static void setCurrentStop(String currentStop) {
-        DataSender.currentStop = currentStop;
-    }
-
-    public static void setNextStop(String nextStop) {
-        DataSender.nextStop = nextStop;
-    }
-
-    public static void setCurrentSpeed(String currentSpeed) {
-        DataSender.currentSpeed = currentSpeed;
-    }
 
     public static void sendData(String destinationIpAddress){
         JsonSerializer serializedFrame = new JsonSerializer();
@@ -60,7 +50,7 @@ public class DataSender {
             }
 //            sendData(DeviceSubscriber.getListOfDevicesIps().get(0));
             for(String ip : DeviceSubscriber.getListOfDevicesIps()){
-                DataSender.sendData(ip);
+                DataFrameCreator.sendData(ip);
             }
         }
     }

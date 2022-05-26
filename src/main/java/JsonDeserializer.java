@@ -20,7 +20,7 @@ public class JsonDeserializer {
     private LogRequestFrame deserializeToLogRequestFrame(String content) {
         LogRequestFrame receivedFrame = gson.fromJson(content, LogRequestFrame.class);
         System.out.println(receivedFrame.getUser()+ " is trying to connect");
-        AccessResponseSender.sendAccessResponse(receivedFrame.getIpAddress());
+        LogResponseFrameCreator.createResponseFrame(receivedFrame.getIpAddress());
         return receivedFrame;
     }
 }
