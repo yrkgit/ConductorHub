@@ -1,4 +1,7 @@
-
+/**
+ * Class represents frame send by ConductorHub to transfer data like Next stop, Current Speed of vehicle, Passenger Counting System data
+ * Contains inner Builder class for Object creations
+ */
 public class DataFrame extends Frame{
     private String currentStop;
     private String nextStop;
@@ -64,6 +67,7 @@ public class DataFrame extends Frame{
             return this;
         }
 
+        @Override
         public DataFrame build() {
             return new DataFrame(this);
         }

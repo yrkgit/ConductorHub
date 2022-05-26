@@ -16,10 +16,13 @@ public class SocketListener {
     private BufferedReader bufferedReader;
     private String message;
 
+    //TODO move port number to config
+    private final int portNumber = 7800;
+
 
     public String startSocketListener() {
         try {
-            serverSocket = new ServerSocket(7800);
+            serverSocket = new ServerSocket(portNumber);
             socket = serverSocket.accept();
             inputStreamReader = new InputStreamReader(socket.getInputStream());
             bufferedReader = new BufferedReader(inputStreamReader);

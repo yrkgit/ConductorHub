@@ -1,14 +1,22 @@
+/**
+ * Main class, starts na new Thread with Device Subscription Server (awaiting new clients)
+ */
 public class ConductorHub {
 
+    private static ConductorHub conductorHub;
+    private Thread serverThread;
+
+    static {
+        conductorHub = new ConductorHub();
+    }
 
     public static void main(String[] args) {
-        ConductorHub conductorHub = new ConductorHub();
         conductorHub.startConductorHub();
     }
 
+    //Run socketListener to receive packets from remote Conductor
     public void startConductorHub() {
-        //Run socketListener to receive packets from remote Conductor
-        Thread serverThread = new Thread(new DeviceSubscriptionServer());
+        serverThread =new Thread(new DeviceSubscriptionServer());
         serverThread.start();
 
     }

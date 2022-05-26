@@ -1,3 +1,8 @@
+/**
+ * Class represents base (header) of frames used in communication between ConductorHub and (subscribed) Devices
+ * Describe basic frame parameters with all frame must have: version of the application, type of frame (based on FrameTypes Enum) and time of frame creation
+ * Contains inner Builder class for Object creations
+ */
 
 public class Frame {
     protected String appVersion;
@@ -11,7 +16,7 @@ public class Frame {
         this.utc = builder.utc;
     }
 
-    public static Builder builder() {
+    protected static Builder builder() {
         return new Builder() {
             @Override
             public Builder getThis() {

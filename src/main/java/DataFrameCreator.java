@@ -1,30 +1,45 @@
+
+
 import java.time.Instant;
 import java.util.concurrent.TimeUnit;
 
 public class DataFrameCreator {
     //TODO - move port number to config
-    private static final int destinationDataPortNumber =7802;
-    private static String currentStop;
-    private static String nextStop;
-    private static String currentSpeed;
+    private final int destinationDataPortNumber = 7802;
+    private String currentStop;
+    private String nextStop;
+    private String currentSpeed;
 
-    private static int passengerStats;
-    private static int boardingStats;
-    private static int unBoardingStats;
+    private int passengerStats;
+    private int boardingStats;
+    private int unBoardingStats;
 
     //TODO - do testów usunąć
-    static {
-        currentStop="Bydgoszcz Główna";
-        nextStop="Bydgoszcz Wschód";
-        currentSpeed="100";
+    DataFrameCreator() {
+        currentStop = "Bydgoszcz Główna";
+        nextStop = "Bydgoszcz Wschód";
+        currentSpeed = "100";
 
-        passengerStats=157;
-        boardingStats=22;
-        unBoardingStats=14;
+        passengerStats = 157;
+        boardingStats = 22;
+        unBoardingStats = 14;
     }
 
 
-    public static void sendData(String destinationIpAddress){
+    public void startSendingData() {
+        while (!DeviceSubscriber.getListOfDevicesIps().isEmpty()) {
+            try {
+                TimeUnit.SECONDS.sleep(10);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            for (String ip : DeviceSubscriber.getListOfDevicesIps()) {
+                sendData(ip);
+            }
+        }
+    }
+
+    public void sendData(String destinationIpAddress) {
         JsonSerializer serializedFrame = new JsonSerializer();
         Sender frameSender = new StringToDeviceSender();
         DataFrame dataFrame = DataFrame.builder()
@@ -39,19 +54,6 @@ public class DataFrameCreator {
                 .unBoardingStats(unBoardingStats)
                 .build();
         System.out.println("Created data frame " + dataFrame.toString());
-        frameSender.sendFrame(serializedFrame.createJson(dataFrame),destinationIpAddress, destinationDataPortNumber);
-    }
-    public static void startSendingData(){
-        while (!DeviceSubscriber.getListOfDevicesIps().isEmpty()) {
-            try {
-                TimeUnit.SECONDS.sleep(10);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-//            sendData(DeviceSubscriber.getListOfDevicesIps().get(0));
-            for(String ip : DeviceSubscriber.getListOfDevicesIps()){
-                DataFrameCreator.sendData(ip);
-            }
-        }
+        frameSender.sendFrame(serializedFrame.createJson(dataFrame), destinationIpAddress, destinationDataPortNumber);
     }
 }
