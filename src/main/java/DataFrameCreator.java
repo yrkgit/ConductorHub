@@ -3,7 +3,7 @@ import java.util.concurrent.TimeUnit;
 
 public class DataFrameCreator {
     //TODO - move port number to config
-    private static final int destinationPortNumber =7802;
+    private static final int destinationDataPortNumber =7802;
     private static String currentStop;
     private static String nextStop;
     private static String currentSpeed;
@@ -39,7 +39,7 @@ public class DataFrameCreator {
                 .unBoardingStats(unBoardingStats)
                 .build();
         System.out.println("Created data frame " + dataFrame.toString());
-        frameSender.sendFrame(serializedFrame.createJson(dataFrame),destinationIpAddress, destinationPortNumber);
+        frameSender.sendFrame(serializedFrame.createJson(dataFrame),destinationIpAddress, destinationDataPortNumber);
     }
     public static void startSendingData(){
         while (!DeviceSubscriber.getListOfDevicesIps().isEmpty()) {

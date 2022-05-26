@@ -1,5 +1,3 @@
-import java.util.concurrent.TimeUnit;
-
 public class ConductorHub {
 
 
@@ -10,7 +8,7 @@ public class ConductorHub {
 
     public void startConductorHub() {
         //Run socketListener to receive packets from remote Conductor
-        Thread serverThread = new Thread(new ConductorServer());
+        Thread serverThread = new Thread(new DeviceSubscriptionServer());
         serverThread.start();
 
     }

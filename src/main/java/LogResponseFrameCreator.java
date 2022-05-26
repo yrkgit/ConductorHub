@@ -2,23 +2,31 @@ import java.time.Instant;
 
 public class LogResponseFrameCreator {
     //TODO - move port number to config
-    private static final int destinationPortNumber = 7801;
 
-    public static void createResponseFrame(String destinationIpAddress) {
-        JsonSerializer serializedFrame = new JsonSerializer();
-        Sender frameSender = new StringToDeviceSender();
+    private final String appVersion;
+    private final FrameTypes frameType;
+    private  LogResponseTypes responseType;
+
+    public LogResponseFrameCreator() {
+        appVersion = "1.0";
+        frameType = FrameTypes.LOGRESPONSE;
+        responseType = LogResponseTypes.DENIED;
+    }
+
+    public void setResponseType(LogResponseTypes responseType) {
+        this.responseType = responseType;
+    }
+
+    public LogResponseFrame createResponseFrame() {
+
         LogResponseFrame logResponseFrame = LogResponseFrame.builder()
-                .appVersion("1.0")
-                .frameType(FrameTypes.LOGRESPONSE)
+                .appVersion(appVersion)
+                .frameType(frameType)
                 .utc(Instant.now().getEpochSecond())
-                .permission(LogResponseTypes.GRANTED)
+                .permission(responseType)
                 .build();
         System.out.println("Created frame " + logResponseFrame.toString());
-        frameSender.sendFrame(serializedFrame.createJson(logResponseFrame), destinationIpAddress, destinationPortNumber);
-        if (logResponseFrame.getPermission().equals(LogResponseTypes.GRANTED)) {
-            DeviceSubscriber.addDeviceIp(destinationIpAddress);
-            System.out.println("Dodano urządzenie: " + destinationIpAddress + "Ilość subskrybentów IP: " + DeviceSubscriber.getNumberOfDevicesIps());
-            DataFrameCreator.startSendingData();
-        }
+
+        return logResponseFrame;
     }
 }

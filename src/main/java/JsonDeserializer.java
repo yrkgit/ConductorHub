@@ -2,25 +2,31 @@ import com.google.gson.Gson;
 
 public class JsonDeserializer {
 
-
     private Gson gson;
+    private Frame frame;
 
-    public Frame deserializeJsonToFrameObject(String content){
-        //TODO add try and not null
+    public JsonDeserializer() {
         gson = new Gson();
-        Frame frame= gson.fromJson(content,Frame.class);
-        System.out.println("Deserialization");
+    }
 
-        if (frame.frameType.equals(FrameTypes.LOGREQUEST)){
+    public LogRequestFrame deserializeJsonToFrameObject(String content) {
+        //TODO add try and not null
+
+        try{
+            frame = gson.fromJson(content, Frame.class);
+            System.out.println("Deserialization");
+        }catch (Exception e){
+
+        }
+
+/*Checking type of frame */
+        if (frame.frameType.equals(FrameTypes.LOGREQUEST)) {
             return deserializeToLogRequestFrame(content);
         }
-        return frame;
+        return null;
     }
 
     private LogRequestFrame deserializeToLogRequestFrame(String content) {
-        LogRequestFrame receivedFrame = gson.fromJson(content, LogRequestFrame.class);
-        System.out.println(receivedFrame.getUser()+ " is trying to connect");
-        LogResponseFrameCreator.createResponseFrame(receivedFrame.getIpAddress());
-        return receivedFrame;
+        return gson.fromJson(content, LogRequestFrame.class);
     }
 }

@@ -2,9 +2,13 @@ import java.util.ArrayList;
 
 public class DeviceSubscriber {
     private static ArrayList<String> listOfDevicesIps = new ArrayList<String>();
+    private static ArrayList<String> listOfDevicesUsers = new ArrayList<String>();
 
     public static void addDeviceIp(String deviceIp){
         listOfDevicesIps.add(deviceIp);
+    }
+    public static void addDeviceUser(String deviceUser){
+        listOfDevicesUsers.add(deviceUser);
     }
 
     public static ArrayList<String> getListOfDevicesIps() {
