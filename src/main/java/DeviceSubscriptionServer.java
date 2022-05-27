@@ -52,7 +52,6 @@ public class DeviceSubscriptionServer implements Runnable {
     }
 
     public void processCapturedFrame() {
-        assert content != null;
         receivedFrame = deserializer.deserializeJsonToFrameObject(content);
 
         if (receivedFrame != null) {
@@ -72,9 +71,9 @@ public class DeviceSubscriptionServer implements Runnable {
     }
 
     private void subscribeDevice() {
-        if (DeviceSubscriber.getListOfDevicesIps().contains(receivedFrame.getIpAddress())){
-            System.out.println(receivedFrame.getIpAddress()+" jest już subskrybentem");
-        }else {
+        if (DeviceSubscriber.getListOfDevicesIps().contains(receivedFrame.getIpAddress())) {
+            System.out.println(receivedFrame.getIpAddress() + " was already subscribed");
+        } else {
             DeviceSubscriber.addDeviceIp(receivedFrame.getIpAddress());
             DeviceSubscriber.addDeviceUser(receivedFrame.getUser());
             System.out.println("Dodano urządzenie: " + receivedFrame.getUser() + " with IP address: " + receivedFrame.getIpAddress() + " Ilość subskrybentów IP: " + DeviceSubscriber.getNumberOfDevicesIps());
@@ -84,8 +83,9 @@ public class DeviceSubscriptionServer implements Runnable {
             }
         }
     }
-    private void startSendingData(){
-        isServerAlreadyStarted=true;
+
+    private void startSendingData() {
+        isServerAlreadyStarted = true;
         dataFrameCreatorThread = new Thread(new DataFrameSender());
         dataFrameCreatorThread.start();
     }
