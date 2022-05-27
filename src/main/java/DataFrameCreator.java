@@ -1,11 +1,9 @@
 
 
 import java.time.Instant;
-import java.util.concurrent.TimeUnit;
 
 public class DataFrameCreator {
-    //TODO - move port number to config
-    private final int destinationDataPortNumber = 7802;
+
     private String currentStop;
     private String nextStop;
     private String currentSpeed;
@@ -25,23 +23,8 @@ public class DataFrameCreator {
         unBoardingStats = 14;
     }
 
+    public DataFrame createDataFrame() {
 
-    public void startSendingData() {
-        while (!DeviceSubscriber.getListOfDevicesIps().isEmpty()) {
-            try {
-                TimeUnit.SECONDS.sleep(10);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            for (String ip : DeviceSubscriber.getListOfDevicesIps()) {
-                sendData(ip);
-            }
-        }
-    }
-
-    public void sendData(String destinationIpAddress) {
-        JsonSerializer serializedFrame = new JsonSerializer();
-        Sender frameSender = new StringToDeviceSender();
         DataFrame dataFrame = DataFrame.builder()
                 .appVersion("1.0")
                 .frameType(FrameTypes.DATA)
@@ -54,6 +37,6 @@ public class DataFrameCreator {
                 .unBoardingStats(unBoardingStats)
                 .build();
         System.out.println("Created data frame " + dataFrame.toString());
-        frameSender.sendFrame(serializedFrame.createJson(dataFrame), destinationIpAddress, destinationDataPortNumber);
+        return dataFrame;
     }
 }

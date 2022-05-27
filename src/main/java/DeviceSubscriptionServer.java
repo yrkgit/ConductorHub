@@ -4,7 +4,7 @@
 
 public class DeviceSubscriptionServer implements Runnable {
 
-    private static final int destinationLogPortNumber = 7801;
+    private static final int destinationLogPortNumber = 7803;
 
     private String content;
     private boolean isServerRunning;
@@ -15,6 +15,8 @@ public class DeviceSubscriptionServer implements Runnable {
     private LogRequestFrame receivedFrame;
     private final DataFrameCreator dataFrameCreator;
     private final SocketListener socketListener;
+    private Thread dataFrameCreatorThread;
+    private boolean isServerAlreadyStarted;
 
     public DeviceSubscriptionServer() {
         logResponseFrameCreator = new LogResponseFrameCreator();
@@ -67,13 +69,24 @@ public class DeviceSubscriptionServer implements Runnable {
                 subscribeDevice();
             }
         }
-
     }
 
     private void subscribeDevice() {
-        DeviceSubscriber.addDeviceIp(receivedFrame.getIpAddress());
-        DeviceSubscriber.addDeviceUser(receivedFrame.getUser());
-        System.out.println("Dodano urządzenie: " + receivedFrame.getUser() + " with IP address: " + receivedFrame.getIpAddress() + " Ilość subskrybentów IP: " + DeviceSubscriber.getNumberOfDevicesIps());
-        dataFrameCreator.startSendingData();
+        if (DeviceSubscriber.getListOfDevicesIps().contains(receivedFrame.getIpAddress())){
+            System.out.println(receivedFrame.getIpAddress()+" jest już subskrybentem");
+        }else {
+            DeviceSubscriber.addDeviceIp(receivedFrame.getIpAddress());
+            DeviceSubscriber.addDeviceUser(receivedFrame.getUser());
+            System.out.println("Dodano urządzenie: " + receivedFrame.getUser() + " with IP address: " + receivedFrame.getIpAddress() + " Ilość subskrybentów IP: " + DeviceSubscriber.getNumberOfDevicesIps());
+
+            if (!isServerAlreadyStarted) {
+                startSendingData();
+            }
+        }
+    }
+    private void startSendingData(){
+        isServerAlreadyStarted=true;
+        dataFrameCreatorThread = new Thread(new DataFrameSender());
+        dataFrameCreatorThread.start();
     }
 }
