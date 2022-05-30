@@ -17,6 +17,8 @@ public class DeviceSubscriptionServer implements Runnable {
     private final SocketListener socketListener;
     private Thread dataFrameCreatorThread;
     private boolean isServerAlreadyStarted;
+    private UserPermissionToLogonVerifier userVerifier;
+    private LogResponseTypes userAccessPermission;
 
     public DeviceSubscriptionServer() {
         logResponseFrameCreator = new LogResponseFrameCreator();
@@ -26,6 +28,7 @@ public class DeviceSubscriptionServer implements Runnable {
         frameSender = new StringToDeviceSender();
         socketListener = new SocketListener();
         isServerRunning = true;
+        userVerifier=new UserPermissionToLogonVerifier();
     }
 
     public void stopServer() {
@@ -57,17 +60,28 @@ public class DeviceSubscriptionServer implements Runnable {
         if (receivedFrame != null) {
             System.out.println(receivedFrame.getUser() + " is trying to connect");
 
-            //TODO add user authentication from sql base
-            logResponseFrameCreator.setResponseType(LogResponseTypes.GRANTED);
+            //user authentication - setting response permission
+            setPermission(receivedFrame);
 
-
-            LogResponseFrame logResponseFrame = logResponseFrameCreator.createResponseFrame();
-            frameSender.sendFrame(serializedFrame.createJson(logResponseFrame), receivedFrame.getIpAddress(), destinationLogPortNumber);
+            LogResponseFrame logResponseFrame = prepareLogResponseFrame();
 
             if (logResponseFrame.getPermission().equals(LogResponseTypes.GRANTED)) {
                 subscribeDevice();
             }
         }
+    }
+
+    private LogResponseFrame prepareLogResponseFrame() {
+        LogResponseFrame logResponseFrame = logResponseFrameCreator.createResponseFrame();
+        frameSender.sendFrame(serializedFrame.createJson(logResponseFrame), receivedFrame.getIpAddress(), destinationLogPortNumber);
+        return logResponseFrame;
+    }
+
+    private void setPermission(LogRequestFrame receivedFrame) {
+        userAccessPermission = userVerifier.verifyUserAccessPermission(
+                new User(receivedFrame.getUser(), receivedFrame.getPass()));
+
+        logResponseFrameCreator.setResponseType(userAccessPermission);
     }
 
     private void subscribeDevice() {
