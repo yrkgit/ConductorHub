@@ -5,7 +5,7 @@
 public class DeviceSubscriptionServer implements Runnable {
 
     private static final int destinationLogPortNumber = 7803;
-
+//TODO Create anonymous inner classes for object used once (from classes with one method)
     private String content;
     private boolean isServerRunning;
     private final JsonDeserializer deserializer;
