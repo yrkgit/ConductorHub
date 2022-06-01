@@ -1,23 +1,26 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class MySqlDatabase implements Database {
     private static final String dbUserName;
     private static final String dbPassword;
     private static final String dbUrl;
+    private String queryResult;
+    private Connection connection;
+    private Statement statement;
+    private ResultSet resultSet;
 
     static {
-        dbUserName = "TestUser";
-        dbPassword = "TestPassword";
-        dbUrl="";
+        dbUserName = "root";
+        dbPassword = "root";
+        dbUrl = "jdbc:mysql://localhost:3306/conductordb";
     }
 
     @Override
     public void connect() {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection(dbUrl, dbUserName, dbPassword);
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection(dbUrl, dbUserName, dbPassword);
+            statement = connection.createStatement();
         } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }
@@ -25,6 +28,13 @@ public class MySqlDatabase implements Database {
 
     @Override
     public void disconnect() {
+        try {
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -34,7 +44,19 @@ public class MySqlDatabase implements Database {
     }
 
     @Override
-    public void fetchQuery() {
-
+    public String fetchQuery(String query) {
+        queryResult = null;
+        connect();
+        try {
+            resultSet = statement.executeQuery(query);
+            if (resultSet.next()) {
+                queryResult = resultSet.getString("password");
+                System.out.println(queryResult);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        disconnect();
+        return queryResult;
     }
 }
