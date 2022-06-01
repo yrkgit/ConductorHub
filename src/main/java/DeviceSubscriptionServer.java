@@ -13,17 +13,13 @@ public class DeviceSubscriptionServer implements Runnable {
     private final JsonSerializer serializedFrame;
     private final Sender frameSender;
     private LogRequestFrame receivedFrame;
-    private final DataFrameCreator dataFrameCreator;
     private final SocketListener socketListener;
-    private Thread dataFrameCreatorThread;
     private boolean isServerAlreadyStarted;
-    private UserPermissionToLogonVerifier userVerifier;
-    private LogResponseTypes userAccessPermission;
+    private final UserPermissionToLogonVerifier userVerifier;
 
     public DeviceSubscriptionServer() {
         logResponseFrameCreator = new LogResponseFrameCreator();
         deserializer = new JsonDeserializer();
-        dataFrameCreator = new DataFrameCreator();
         serializedFrame = new JsonSerializer();
         frameSender = new StringToDeviceSender();
         socketListener = new SocketListener();
@@ -78,8 +74,11 @@ public class DeviceSubscriptionServer implements Runnable {
     }
 
     private void setPermission(LogRequestFrame receivedFrame) {
-        userAccessPermission = userVerifier.verifyUserAccessPermission(
-                new User(receivedFrame.getUser(), receivedFrame.getPass()));
+        LogResponseTypes userAccessPermission = userVerifier.verifyUserAccessPermission(
+                new User.UserBuilder()
+                        .name(receivedFrame.getUser())
+                        .password(receivedFrame.getPass())
+                        .build());
 
         logResponseFrameCreator.setResponseType(userAccessPermission);
     }
@@ -100,7 +99,7 @@ public class DeviceSubscriptionServer implements Runnable {
 
     private void startSendingData() {
         isServerAlreadyStarted = true;
-        dataFrameCreatorThread = new Thread(new DataFrameSender());
+        Thread dataFrameCreatorThread = new Thread(new DataFrameSender());
         dataFrameCreatorThread.start();
     }
 }
