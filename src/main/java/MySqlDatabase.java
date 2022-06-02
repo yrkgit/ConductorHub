@@ -8,17 +8,19 @@ public class MySqlDatabase implements Database {
     private Connection connection;
     private Statement statement;
     private ResultSet resultSet;
+    private static final String jdbcDriver;
 
     static {
         dbUserName = "root";
         dbPassword = "root";
         dbUrl = "jdbc:mysql://localhost:3306/conductordb";
+        jdbcDriver= "com.mysql.cj.jdbc.Driver";
     }
 
     @Override
     public void connect() {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName(jdbcDriver);
             connection = DriverManager.getConnection(dbUrl, dbUserName, dbPassword);
             statement = connection.createStatement();
         } catch (ClassNotFoundException | SQLException e) {

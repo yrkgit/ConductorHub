@@ -6,16 +6,18 @@ public class DeviceSubscriptionServer implements Runnable {
 
     private static final int destinationLogPortNumber = 7803;
 //TODO Create anonymous inner classes for object used once (from classes with one method)
-    private String content;
-    private boolean isServerRunning;
     private final JsonDeserializer deserializer;
     private final LogResponseFrameCreator logResponseFrameCreator;
     private final JsonSerializer serializedFrame;
     private final Sender frameSender;
-    private LogRequestFrame receivedFrame;
     private final SocketListener socketListener;
-    private boolean isServerAlreadyStarted;
     private final UserPermissionToLogonVerifier userVerifier;
+    private final MySqlDatabase mySqlDatabase;
+
+   private String content;
+    private boolean isServerRunning;
+    private LogRequestFrame receivedFrame;
+    private boolean isServerAlreadyStarted;
 
     public DeviceSubscriptionServer() {
         logResponseFrameCreator = new LogResponseFrameCreator();
@@ -25,6 +27,7 @@ public class DeviceSubscriptionServer implements Runnable {
         socketListener = new SocketListener();
         isServerRunning = true;
         userVerifier=new UserPermissionToLogonVerifier();
+        mySqlDatabase = new MySqlDatabase();
     }
 
     public void stopServer() {
@@ -78,7 +81,8 @@ public class DeviceSubscriptionServer implements Runnable {
                 new User.UserBuilder()
                         .name(receivedFrame.getUser())
                         .password(receivedFrame.getPass())
-                        .build());
+                        .build()
+                ,mySqlDatabase);
 
         logResponseFrameCreator.setResponseType(userAccessPermission);
     }
