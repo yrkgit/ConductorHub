@@ -23,6 +23,7 @@ public class StringToDeviceSender implements Sender {
             System.out.println("Send " + content +" to device");
         }catch(ConnectException connectException){
             System.out.println("Can't send frame to device");
+            connectException.printStackTrace();
         }
         catch (IOException e) {
             e.printStackTrace();

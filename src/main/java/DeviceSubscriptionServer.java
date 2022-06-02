@@ -1,9 +1,12 @@
 /**
  * Runnable class that opening socket (by invoking SocketListener) and starting listening to communication from remote hosts. When get response from SocketListener pass it to JSON deserializer
  */
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class DeviceSubscriptionServer implements Runnable {
 
+    private static final Logger logger = LogManager.getLogger(DeviceSubscriptionServer.class);
     private static final int destinationLogPortNumber = 7803;
 //TODO Create anonymous inner classes for object used once (from classes with one method)
     private final JsonDeserializer deserializer;
@@ -43,9 +46,9 @@ public class DeviceSubscriptionServer implements Runnable {
     public void run() {
         try {
             while (isServerRunning) {
-                System.out.println("Start receiving packets... ");
+                logger.debug("Start receiving packets... ");
                 content = socketListener.startSocketListener();
-                System.out.println("Captured content from socket " + content);
+                logger.info("Captured content from socket " + content);
                 processCapturedFrame();
             }
         } catch (Exception e) {
@@ -57,7 +60,7 @@ public class DeviceSubscriptionServer implements Runnable {
         receivedFrame = deserializer.deserializeJsonToFrameObject(content);
 
         if (receivedFrame != null) {
-            System.out.println(receivedFrame.getUser() + " is trying to connect");
+            logger.info(receivedFrame.getUser() + " is trying to connect");
 
             //user authentication - setting response permission
             setPermission(receivedFrame);
@@ -89,11 +92,11 @@ public class DeviceSubscriptionServer implements Runnable {
 
     private void subscribeDevice() {
         if (DeviceSubscriber.getListOfDevicesIps().contains(receivedFrame.getIpAddress())) {
-            System.out.println(receivedFrame.getIpAddress() + " was already subscribed");
+            logger.info(receivedFrame.getIpAddress() + " was already subscribed");
         } else {
             DeviceSubscriber.addDeviceIp(receivedFrame.getIpAddress());
             DeviceSubscriber.addDeviceUser(receivedFrame.getUser());
-            System.out.println("Dodano urządzenie: " + receivedFrame.getUser() + " with IP address: " + receivedFrame.getIpAddress() + " Ilość subskrybentów IP: " + DeviceSubscriber.getNumberOfDevicesIps());
+            logger.info("Dodano urządzenie: " + receivedFrame.getUser() + " with IP address: " + receivedFrame.getIpAddress() + " Ilość subskrybentów IP: " + DeviceSubscriber.getNumberOfDevicesIps());
 
             if (!isServerAlreadyStarted) {
                 startSendingData();
