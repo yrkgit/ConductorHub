@@ -2,16 +2,18 @@
 Class to verify user login credentials received in logRequest - checking if pass from user object (created from logRequestFrame) match with password from db for this user
  */
 
+
 public class UserPermissionToLogonVerifier {
 
-
-    private String passFromSql;
+private final String getPassQuery= "select password from users where name = ?";
+    private String passFromDb;
 
     public LogResponseTypes verifyUserAccessPermission(User user, Database database) {
         LogResponseTypes logPermission=null;
-        passFromSql = database.fetchQuery("select password from users where name='" + user.getName() + "'");
 
-        if (passFromSql!=null && passFromSql.equals(user.getPassword())){
+        passFromDb = database.fetchOneParamQuery(getPassQuery,user.getName());
+
+        if (passFromDb !=null && passFromDb.equals(user.getPassword())){
             logPermission=LogResponseTypes.GRANTED;
         }
         if (logPermission == null) {

@@ -1,20 +1,20 @@
-
-
 import java.util.concurrent.TimeUnit;
 
 public class DataFrameSender implements Runnable {
 
     //TODO - move port number to config
     private final int destinationDataPortNumber = 7802;
-    private DataFrameCreator dataFrameCreator;
-    JsonSerializer serializedFrame;
-    Sender frameSender;
-    DataFrame dataFrame;
+    private DataFrame dataFrame;
 
-    public DataFrameSender() {
-        dataFrameCreator = new DataFrameCreator();
-        serializedFrame = new JsonSerializer();
-        frameSender = new StringToDeviceSender();
+    private DataFrameCreator dataFrameCreator;
+    private JsonSerializer serializedFrame;
+    private Sender frameSender;
+
+
+    public DataFrameSender(DataFrameCreator dataFrameCreator, JsonSerializer serializedFrame, Sender frameSender) {
+        this.dataFrameCreator = dataFrameCreator;
+        this.serializedFrame = serializedFrame;
+        this.frameSender = frameSender;
     }
 
     @Override

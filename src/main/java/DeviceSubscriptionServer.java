@@ -108,7 +108,7 @@ public class DeviceSubscriptionServer implements Runnable {
 
     private void startSendingData() {
         isServerAlreadyStarted = true;
-        Thread dataFrameCreatorThread = new Thread(new DataFrameSender());
+        Thread dataFrameCreatorThread = new Thread(new DataFrameSender(new DataFrameCreator(),new JsonSerializer(),new StringToDeviceSender()));
         dataFrameCreatorThread.start();
     }
 }

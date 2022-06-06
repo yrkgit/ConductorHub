@@ -1,10 +1,6 @@
-
-
 import java.time.Instant;
 
 public class DataFrameCreator {
-
-
 
     private String currentStop;
     private String nextStop;
@@ -26,7 +22,6 @@ public class DataFrameCreator {
     }
 
     public DataFrame createDataFrame() {
-
         DataFrame dataFrame = DataFrame.builder()
                 .appVersion("1.0")
                 .frameType(FrameTypes.DATA)

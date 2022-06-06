@@ -10,7 +10,7 @@ public class MySqlDatabase implements Database {
     private static final String dbUrl;
     private String queryResult;
     private Connection connection;
-    private Statement statement;
+    PreparedStatement statement;
     private ResultSet resultSet;
     private static final String jdbcDriver;
 
@@ -18,7 +18,7 @@ public class MySqlDatabase implements Database {
         dbUserName = "root";
         dbPassword = "root";
         dbUrl = "jdbc:mysql://localhost:3306/conductordb";
-        jdbcDriver= "com.mysql.cj.jdbc.Driver";
+        jdbcDriver = "com.mysql.cj.jdbc.Driver";
     }
 
     @Override
@@ -26,7 +26,6 @@ public class MySqlDatabase implements Database {
         try {
             Class.forName(jdbcDriver);
             connection = DriverManager.getConnection(dbUrl, dbUserName, dbPassword);
-            statement = connection.createStatement();
         } catch (ClassNotFoundException | SQLException e) {
             FileLogger.logger.error(e.getMessage());
             throw new RuntimeException(e);
@@ -43,7 +42,6 @@ public class MySqlDatabase implements Database {
             FileLogger.logger.error(e.getMessage());
             e.printStackTrace();
         }
-
     }
 
     @Override
@@ -52,11 +50,14 @@ public class MySqlDatabase implements Database {
     }
 
     @Override
-    public String fetchQuery(String query) {
+    public String fetchOneParamQuery(String query, String param) {
         queryResult = null;
         connect();
         try {
-            resultSet = statement.executeQuery(query);
+            statement= connection.prepareStatement(query);
+            statement.setString(1,param);
+            System.out.println(statement);
+            resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 queryResult = resultSet.getString("password");
             }

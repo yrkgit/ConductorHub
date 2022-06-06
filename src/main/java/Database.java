@@ -2,5 +2,5 @@ public interface Database {
     void connect();
     void disconnect();
     void modifyQuery();
-    String fetchQuery(String query);
+    String fetchOneParamQuery(String query, String param);
 }
