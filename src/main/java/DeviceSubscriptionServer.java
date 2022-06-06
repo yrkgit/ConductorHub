@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 
 public class DeviceSubscriptionServer implements Runnable {
 
+
     private static final Logger logger = LogManager.getLogger(DeviceSubscriptionServer.class);
     private static final int destinationLogPortNumber = 7803;
 //TODO Create anonymous inner classes for object used once (from classes with one method)
@@ -21,6 +22,7 @@ public class DeviceSubscriptionServer implements Runnable {
     private boolean isServerRunning;
     private LogRequestFrame receivedFrame;
     private boolean isServerAlreadyStarted;
+
 
     public DeviceSubscriptionServer() {
         logResponseFrameCreator = new LogResponseFrameCreator();
@@ -46,12 +48,13 @@ public class DeviceSubscriptionServer implements Runnable {
     public void run() {
         try {
             while (isServerRunning) {
-                logger.debug("Start receiving packets... ");
+                logger.info("Start receiving packets... ");
                 content = socketListener.startSocketListener();
                 logger.info("Captured content from socket " + content);
                 processCapturedFrame();
             }
         } catch (Exception e) {
+            logger.error(e.getMessage());
             e.printStackTrace();
         }
     }
