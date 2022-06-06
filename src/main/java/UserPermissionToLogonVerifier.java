@@ -5,13 +5,11 @@ Class to verify user login credentials received in logRequest - checking if pass
 
 public class UserPermissionToLogonVerifier {
 
-private final String getPassQuery= "select password from users where name = ?";
-    private String passFromDb;
-
     public LogResponseTypes verifyUserAccessPermission(User user, Database database) {
+        String getPassQuery = "select password from users where name = ?";
         LogResponseTypes logPermission=null;
 
-        passFromDb = database.fetchOneParamQuery(getPassQuery,user.getName());
+        String passFromDb = database.fetchOneParamQuery(getPassQuery, user.getName());
 
         if (passFromDb !=null && passFromDb.equals(user.getPassword())){
             logPermission=LogResponseTypes.GRANTED;

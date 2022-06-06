@@ -3,8 +3,7 @@
  */
 public class ConductorHub {
 
-    private static ConductorHub conductorHub;
-    private Thread serverThread;
+    private static final ConductorHub conductorHub;
 
 
     static {
@@ -17,7 +16,7 @@ public class ConductorHub {
 
     //Run socketListener to receive packets from remote Conductor
     public void startConductorHub() {
-        serverThread =new Thread(new DeviceSubscriptionServer());
+        Thread serverThread = new Thread(new DeviceSubscriptionServer());
         serverThread.start();
 
     }

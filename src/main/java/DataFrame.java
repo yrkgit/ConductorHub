@@ -3,13 +3,13 @@
  * Contains inner Builder class for Object creations
  */
 public class DataFrame extends Frame{
-    private String currentStop;
-    private String nextStop;
-    private String currentSpeed;
+    private final String currentStop;
+    private final String nextStop;
+    private final String currentSpeed;
 
-    private int passengerStats;
-    private int boardingStats;
-    private int unBoardingStats;
+    private final int passengerStats;
+    private final int boardingStats;
+    private final int unBoardingStats;
 
 
     public DataFrame(Builder builder) {

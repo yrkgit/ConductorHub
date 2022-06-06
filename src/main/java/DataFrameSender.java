@@ -3,12 +3,11 @@ import java.util.concurrent.TimeUnit;
 public class DataFrameSender implements Runnable {
 
     //TODO - move port number to config
-    private final int destinationDataPortNumber = 7802;
-    private DataFrame dataFrame;
+    private static final int destinationDataPortNumber = 7802;
 
-    private DataFrameCreator dataFrameCreator;
-    private JsonSerializer serializedFrame;
-    private Sender frameSender;
+    private final DataFrameCreator dataFrameCreator;
+    private final JsonSerializer serializedFrame;
+    private final Sender frameSender;
 
 
     public DataFrameSender(DataFrameCreator dataFrameCreator, JsonSerializer serializedFrame, Sender frameSender) {
@@ -28,7 +27,7 @@ public class DataFrameSender implements Runnable {
 
             }
             for (String destinationIpAddress : DeviceSubscriber.getListOfDevicesIps()) {
-                dataFrame = dataFrameCreator.createDataFrame();
+                DataFrame dataFrame = dataFrameCreator.createDataFrame();
                 frameSender.sendFrame(serializedFrame.createJson(dataFrame), destinationIpAddress, destinationDataPortNumber);
             }
         }

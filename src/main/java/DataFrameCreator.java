@@ -2,15 +2,15 @@ import java.time.Instant;
 
 public class DataFrameCreator {
 
-    private String currentStop;
-    private String nextStop;
-    private String currentSpeed;
+    private final String currentStop;
+    private final String nextStop;
+    private final String currentSpeed;
 
-    private int passengerStats;
-    private int boardingStats;
-    private int unBoardingStats;
+    private final int passengerStats;
+    private final int boardingStats;
+    private final int unBoardingStats;
 
-    //TODO - do testów usunąć
+    //TODO - do testów / usunąć
     DataFrameCreator() {
         currentStop = "Bydgoszcz Główna";
         nextStop = "Bydgoszcz Wschód";

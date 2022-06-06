@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 
 public class DeviceSubscriber {
-    private static ArrayList<String> listOfDevicesIps = new ArrayList<String>();
-    private static ArrayList<String> listOfDevicesUsers = new ArrayList<String>();
+    private static ArrayList<String> listOfDevicesIps = new ArrayList<>();
+    private static ArrayList<String> listOfDevicesUsers = new ArrayList<>();
 
     public static void addDeviceIp(String deviceIp){
         listOfDevicesIps.add(deviceIp);
