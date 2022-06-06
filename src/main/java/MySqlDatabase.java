@@ -1,12 +1,10 @@
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
 
 import java.sql.*;
 
 
 public class MySqlDatabase implements Database {
 
-    private static final Logger logger = LogManager.getLogger(DeviceSubscriptionServer.class);
     private static final String dbUserName;
     private static final String dbPassword;
     private static final String dbUrl;
@@ -30,7 +28,7 @@ public class MySqlDatabase implements Database {
             connection = DriverManager.getConnection(dbUrl, dbUserName, dbPassword);
             statement = connection.createStatement();
         } catch (ClassNotFoundException | SQLException e) {
-            logger.error(e.getMessage());
+            FileLogger.logger.error(e.getMessage());
             throw new RuntimeException(e);
         }
     }
@@ -42,7 +40,7 @@ public class MySqlDatabase implements Database {
             statement.close();
             connection.close();
         } catch (SQLException e) {
-            logger.error(e.getMessage());
+            FileLogger.logger.error(e.getMessage());
             e.printStackTrace();
         }
 
@@ -63,7 +61,7 @@ public class MySqlDatabase implements Database {
                 queryResult = resultSet.getString("password");
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage());
+            FileLogger.logger.error(e.getMessage());
             e.printStackTrace();
         }
         disconnect();

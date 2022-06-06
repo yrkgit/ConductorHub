@@ -7,12 +7,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
 
 public class SocketListener {
 
-    private static final Logger logger = LogManager.getLogger(DeviceSubscriptionServer.class);
     private Socket socket;
     private ServerSocket serverSocket;
     private InputStreamReader inputStreamReader;
@@ -31,7 +29,7 @@ public class SocketListener {
             bufferedReader = new BufferedReader(inputStreamReader);
             message = bufferedReader.readLine();
 
-            logger.info(message);
+            FileLogger.logger.info(message);
 
             bufferedReader.close();
             inputStreamReader.close();
@@ -41,7 +39,7 @@ public class SocketListener {
             return message;
 
         } catch (IOException e) {
-            logger.error(e.getMessage());
+            FileLogger.logger.error(e.getMessage());
             e.printStackTrace();
         }
         return null;

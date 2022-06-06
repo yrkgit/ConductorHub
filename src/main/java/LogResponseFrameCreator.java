@@ -1,10 +1,7 @@
 import java.time.Instant;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class LogResponseFrameCreator {
 
-    private static final Logger logger = LogManager.getLogger(DeviceSubscriptionServer.class);
     private final String appVersion;
     private final FrameTypes frameType;
     private  LogResponseTypes responseType;
@@ -27,7 +24,7 @@ public class LogResponseFrameCreator {
                 .utc(Instant.now().getEpochSecond())
                 .permission(responseType)
                 .build();
-        logger.info("Created frame " + logResponseFrame.toString());
+        FileLogger.logger.info("Created frame " + logResponseFrame.toString());
 
         return logResponseFrame;
     }

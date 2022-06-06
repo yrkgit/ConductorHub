@@ -1,11 +1,10 @@
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
 
 import java.time.Instant;
 
 public class DataFrameCreator {
 
-    private static final Logger logger = LogManager.getLogger(DeviceSubscriptionServer.class);
+
 
     private String currentStop;
     private String nextStop;
@@ -39,7 +38,7 @@ public class DataFrameCreator {
                 .boardingStats(boardingStats)
                 .unBoardingStats(unBoardingStats)
                 .build();
-        logger.info("Created data frame " + dataFrame.toString());
+        FileLogger.logger.info("Created data frame " + dataFrame.toString());
         return dataFrame;
     }
 }
