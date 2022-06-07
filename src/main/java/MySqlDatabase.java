@@ -56,7 +56,6 @@ public class MySqlDatabase implements Database {
         try {
             statement= connection.prepareStatement(query);
             statement.setString(1,param);
-            System.out.println(statement);
             resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 queryResult = resultSet.getString("password");
