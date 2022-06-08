@@ -6,5 +6,10 @@ class JsonSerializerTest {
 
     @Test
     void createJson() {
+        System.out.println("Test for Serialization JSON");
+    }
+    @Test
+    void createJsonA() {
+        System.out.println("Test for Serialization JSON");
     }
 }
