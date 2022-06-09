@@ -5,11 +5,15 @@ import static org.junit.jupiter.api.Assertions.*;
 class JsonSerializerTest {
 
     @Test
-    void createJson() {
-        System.out.println("Test for Serialization JSON");
+    void createJsonFrameTypeTest() {
+        DataFrameCreator dataFrameCreator = new DataFrameCreator();
+        DataFrame dataFrame = dataFrameCreator.createDataFrame();
+        assertEquals("1.0",dataFrame.appVersion);
     }
     @Test
-    void createJsonA() {
-        System.out.println("Test for Serialization JSON");
+    void createJsonFrameNotNull() {
+        DataFrameCreator dataFrameCreator = new DataFrameCreator();
+        DataFrame dataFrame = dataFrameCreator.createDataFrame();
+        assertNotNull(dataFrame);
     }
 }
