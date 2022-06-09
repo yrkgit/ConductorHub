@@ -14,6 +14,10 @@ public class MySqlDatabase implements Database {
     private ResultSet resultSet;
     private static final String jdbcDriver;
 
+    public Connection getConnection() {
+        return connection;
+    }
+
     static {
         dbUserName = "root";
         dbPassword = "root";
@@ -26,6 +30,7 @@ public class MySqlDatabase implements Database {
         try {
             Class.forName(jdbcDriver);
             connection = DriverManager.getConnection(dbUrl, dbUserName, dbPassword);
+
         } catch (ClassNotFoundException | SQLException e) {
             FileLogger.logger.error(e.getMessage());
             throw new RuntimeException(e);
@@ -50,7 +55,7 @@ public class MySqlDatabase implements Database {
     }
 
     @Override
-    public String fetchOneParamQuery(String query, String param) {
+    public String fetchOneParamQuery(String query, String param,String columnLabel) {
         queryResult = null;
         connect();
         try {
@@ -58,13 +63,14 @@ public class MySqlDatabase implements Database {
             statement.setString(1,param);
             resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                queryResult = resultSet.getString("password");
+                queryResult = resultSet.getString(columnLabel);
             }
         } catch (SQLException e) {
             FileLogger.logger.error(e.getMessage());
             e.printStackTrace();
+        }finally {
+            disconnect();
         }
-        disconnect();
         return queryResult;
     }
 }

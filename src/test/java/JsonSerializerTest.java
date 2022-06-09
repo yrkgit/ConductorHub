@@ -8,7 +8,7 @@ class JsonSerializerTest {
     void createJsonFrameTypeTest() {
         DataFrameCreator dataFrameCreator = new DataFrameCreator();
         DataFrame dataFrame = dataFrameCreator.createDataFrame();
-        assertEquals("1.0",dataFrame.appVersion);
+        assertEquals("1.0",dataFrame.appVersion,"Version should be 1.0");
     }
     @Test
     void createJsonFrameNotNull() {
