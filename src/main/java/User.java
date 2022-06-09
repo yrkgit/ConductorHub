@@ -16,7 +16,7 @@ public class User {
        }
        public User build(){
            if (name.isEmpty()){
-               throw new IllegalStateException("Name cannot be empty");
+               //throw new IllegalStateException("Name cannot be empty");
            }
            User user = new User();
            user.name=this.name;
