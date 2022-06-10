@@ -59,7 +59,7 @@ public class DeviceSubscriptionServer implements Runnable {
     }
 
     public void processCapturedFrame() {
-        receivedFrame = deserializer.deserializeJsonToFrameObject(content);
+        receivedFrame = deserializer.deserializeJsonToLogRequestFrameObject(content);
 
         if (receivedFrame != null) {
             FileLogger.logger.info(receivedFrame.getUser() + " is trying to connect");

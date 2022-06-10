@@ -10,9 +10,7 @@ public class JsonDeserializer {
         gson = new Gson();
     }
 
-    public LogRequestFrame deserializeJsonToFrameObject(String content) {
-        //TODO add try and not null
-
+    public LogRequestFrame deserializeJsonToLogRequestFrameObject(String content) {
         try{
             frame = gson.fromJson(content, Frame.class);
             FileLogger.logger.info("Deserialization: "+ frame.toString());
