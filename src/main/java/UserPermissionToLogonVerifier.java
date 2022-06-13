@@ -9,7 +9,7 @@ public class UserPermissionToLogonVerifier {
         String getPassQuery = "select password from users where name = ?";
         LogResponseTypes logPermission=null;
 
-        String passFromDb = database.fetchOneParamQuery(getPassQuery, user.getName(), "password");
+        String passFromDb = database.fetchOneParamQuery(getPassQuery, user.getName(), "password", new MySqlConnectionConfig());
 
         if (passFromDb !=null && passFromDb.equals(user.getPassword())){
             logPermission=LogResponseTypes.GRANTED;
