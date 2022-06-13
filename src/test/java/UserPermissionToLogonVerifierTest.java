@@ -1,12 +1,18 @@
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class UserPermissionToLogonVerifierTest {
+    UserPermissionToLogonVerifier userPermissionToLogonVerifier;
+
+    @BeforeEach
+    void beforeEach(){
+        userPermissionToLogonVerifier = new UserPermissionToLogonVerifier();
+    }
 
     @Test
     void verifyUserAccessPermissionGrantedTest() {
-        UserPermissionToLogonVerifier userPermissionToLogonVerifier = new UserPermissionToLogonVerifier();
         LogResponseTypes logResponseTypes = userPermissionToLogonVerifier.verifyUserAccessPermission(new User.UserBuilder()
                         .name("qwerty")
                         .password("zxc")
@@ -16,8 +22,34 @@ class UserPermissionToLogonVerifierTest {
     }
 
     @Test
+    void verifyUserAccessWrongPassTest() {
+        LogResponseTypes logResponseTypes = userPermissionToLogonVerifier.verifyUserAccessPermission(new User.UserBuilder()
+                        .name("qwerty")
+                        .password("asd")
+                        .build()
+                , new MySqlDatabase());
+        assertEquals(logResponseTypes, LogResponseTypes.DENIED);
+    }
+    @Test
+    void verifyUserAccessNullPassTest() {
+        LogResponseTypes logResponseTypes = userPermissionToLogonVerifier.verifyUserAccessPermission(new User.UserBuilder()
+                        .name("qwerty")
+                        .password(null)
+                        .build()
+                , new MySqlDatabase());
+        assertEquals(logResponseTypes, LogResponseTypes.DENIED);
+    }
+    @Test
+    void verifyUserAccessNullNameTest() {
+        assertThrows(IllegalStateException.class,()->userPermissionToLogonVerifier.verifyUserAccessPermission(new User.UserBuilder()
+                        .name(null)
+                        .password("qwerty")
+                        .build()
+                , new MySqlDatabase()));
+    }
+
+    @Test
     void verifyUserAccessPermissionEmptyUserTest() {
-        UserPermissionToLogonVerifier userPermissionToLogonVerifier = new UserPermissionToLogonVerifier();
         LogResponseTypes logResponseTypes = userPermissionToLogonVerifier.verifyUserAccessPermission(new User.UserBuilder()
                         .name("")
                         .password("zxc")
@@ -28,7 +60,6 @@ class UserPermissionToLogonVerifierTest {
 
     @Test
     void verifyUserAccessPermissionEmptyPasswordTest() {
-        UserPermissionToLogonVerifier userPermissionToLogonVerifier = new UserPermissionToLogonVerifier();
         LogResponseTypes logResponseTypes = userPermissionToLogonVerifier.verifyUserAccessPermission(new User.UserBuilder()
                         .name("qwerty")
                         .password("")

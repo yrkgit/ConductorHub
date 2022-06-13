@@ -15,12 +15,13 @@ public class User {
            return this;
        }
        public User build(){
-           if (name.isEmpty()){
-               //throw new IllegalStateException("Name cannot be empty");
-           }
            User user = new User();
-           user.name=this.name;
-           user.password=this.password;
+           if (name==null){
+               throw new IllegalStateException("Name cannot be null");
+           }else{
+               user.name=this.name;
+               user.password=this.password;
+           }
            return user;
        }
 

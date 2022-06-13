@@ -1,9 +1,11 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+
 import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assumptions.*;
 
 class MySqlDatabaseTest {
     MySqlDatabase mySqlDatabase;
@@ -15,7 +17,6 @@ class MySqlDatabaseTest {
 
     @Test
     void connectTest() {
-
         mySqlDatabase.connect(new MySqlConnectionConfig());
         try {
             assertFalse(mySqlDatabase.getConnection().isClosed());
@@ -26,6 +27,16 @@ class MySqlDatabaseTest {
 
     @Test
     void disconnectTest() {
+        boolean isConnected = false;
+        mySqlDatabase.connect(new MySqlConnectionConfig());
+        try {
+            if(!mySqlDatabase.getConnection().isClosed()){
+                isConnected=true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        assumeTrue(isConnected);
         mySqlDatabase.fetchOneParamQuery("select ? from users", "name", "name", new MySqlConnectionConfig());
         try {
             assertTrue(mySqlDatabase.getConnection().isClosed());
