@@ -1,12 +1,14 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.concurrent.TimeUnit;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class SocketListenerTest implements Runnable{
     private SocketListener socketListener;
     private StringToDeviceSender stringToDeviceSender;
-    private String value;
+    private static String value;
 
 
     @Test
@@ -14,8 +16,12 @@ class SocketListenerTest implements Runnable{
         Thread thread = new Thread(new SocketListenerTest());
         thread.start();
         stringToDeviceSender();
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         assertEquals("TEST",value);
-
     }
 
     void stringToDeviceSender(){

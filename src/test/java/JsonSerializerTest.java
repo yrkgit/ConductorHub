@@ -15,8 +15,11 @@ class JsonSerializerTest {
     }
 
     @Test
-    void createJsonFrameTypeTest() {
+    void createJsonFrameVersionTest() {
         assertEquals("1.0", dataFrame.appVersion, "Version should be 1.0");
+    }@Test
+    void createJsonFrameTypeTest() {
+        assertEquals(FrameTypes.DATA, dataFrame.frameType, "Type should be DATA");
     }
 
     @Test
