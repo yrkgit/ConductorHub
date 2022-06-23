@@ -6,6 +6,7 @@ public class LogResponseFrameCreator {
     private final FrameTypes frameType;
     private  LogResponseTypes responseType;
 
+    //TODO - only to test
     public LogResponseFrameCreator() {
         appVersion = "1.0";
         frameType = FrameTypes.LOGRESPONSE;

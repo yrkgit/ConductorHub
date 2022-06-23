@@ -1,5 +1,4 @@
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 
 import java.sql.SQLException;
@@ -11,11 +10,13 @@ class MySqlDatabaseTest {
     MySqlDatabase mySqlDatabase;
 
     @BeforeEach
-    void init() {
-         mySqlDatabase = new MySqlDatabase();
+    void init(TestInfo testInfo, TestReporter testReporter) {
+        mySqlDatabase = new MySqlDatabase();
+        testReporter.publishEntry("Running " + testInfo.getDisplayName() + " with tags " + testInfo.getTags());
     }
 
     @Test
+    @DisplayName("Connecting to DB")
     void connectTest() {
         mySqlDatabase.connect(new MySqlConnectionConfig());
         try {
@@ -26,12 +27,13 @@ class MySqlDatabaseTest {
     }
 
     @Test
+    @DisplayName("Disconnecting from DB")
     void disconnectTest() {
         boolean isConnected = false;
         mySqlDatabase.connect(new MySqlConnectionConfig());
         try {
-            if(!mySqlDatabase.getConnection().isClosed()){
-                isConnected=true;
+            if (!mySqlDatabase.getConnection().isClosed()) {
+                isConnected = true;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -46,6 +48,7 @@ class MySqlDatabaseTest {
     }
 
     @Test
+    @DisplayName("Fetch from DB with one param query")
     void fetchOneParamQueryTest() {
         String user = mySqlDatabase.fetchOneParamQuery("select ? from users", "name", "name", new MySqlConnectionConfig());
         mySqlDatabase.disconnect();
@@ -53,6 +56,7 @@ class MySqlDatabaseTest {
     }
 
     @Test
+    @DisplayName("Throws exception when null sql connection params")
     void connectExceptionTest() {
         assertThrows(RuntimeException.class, () -> mySqlDatabase.connect(null));
     }

@@ -1,22 +1,15 @@
-
-
 import java.sql.*;
 
-
 public class MySqlDatabase implements Database {
-
-
 
     private String queryResult;
     private Connection connection;
     PreparedStatement statement;
     private ResultSet resultSet;
 
-
     public Connection getConnection() {
         return connection;
     }
-
 
 
     @Override
