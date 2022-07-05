@@ -2,23 +2,23 @@ import java.time.Instant;
 
 public class DataFrameCreator {
 
-    private final String currentStop;
-    private final String nextStop;
-    private final String currentSpeed;
+    private final String currentStopName;
+    private final String nextStopName;
+    private final String currentVehicleSpeed;
 
-    private final int passengerStats;
-    private final int boardingStats;
-    private final int unBoardingStats;
+    private final int currentPassengerNumber;
+    private final int boardedPassengersOnLastStation;
+    private final int unBoardedPassengersOnLastStation;
 
     //TODO - do testów / usunąć
     DataFrameCreator() {
-        currentStop = "Bydgoszcz Główna";
-        nextStop = "Bydgoszcz Wschód";
-        currentSpeed = "100";
+        currentStopName = "Bydgoszcz Główna";
+        nextStopName = "Bydgoszcz Wschód";
+        currentVehicleSpeed = "100";
 
-        passengerStats = 157;
-        boardingStats = 22;
-        unBoardingStats = 14;
+        currentPassengerNumber = 157;
+        boardedPassengersOnLastStation = 22;
+        unBoardedPassengersOnLastStation = 14;
     }
 
     public DataFrame createDataFrame() {
@@ -26,12 +26,12 @@ public class DataFrameCreator {
                 .appVersion("1.0")
                 .frameType(FrameTypes.DATA)
                 .utc(Instant.now().getEpochSecond())
-                .currentStop(currentStop)
-                .nextStop(nextStop)
-                .currentSpeed(currentSpeed)
-                .passengerStats(passengerStats)
-                .boardingStats(boardingStats)
-                .unBoardingStats(unBoardingStats)
+                .currentStopName(currentStopName)
+                .nextStopName(nextStopName)
+                .currentVehicleSpeed(currentVehicleSpeed)
+                .currentPassengerNumber(currentPassengerNumber)
+                .boardedPassengersOnLastStation(boardedPassengersOnLastStation)
+                .unBoardedPassengersOnLastStation(unBoardedPassengersOnLastStation)
                 .build();
         FileLogger.logger.info("Created data frame " + dataFrame.toString());
         return dataFrame;
