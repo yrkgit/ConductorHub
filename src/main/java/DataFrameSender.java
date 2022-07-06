@@ -3,12 +3,12 @@ import java.util.concurrent.TimeUnit;
 public class DataFrameSender implements Runnable {
 
     //TODO - move port number to config
-    private static final int DESTINATION_DATA_PORT_NUMBER = 7802;
-    private static final int FRAME_SENDING_INTERVAL_IN_SECONDS = 10;
+    private static final int DESTINATION_PORT_NUMBER = 7802;
+    private static final int TIME_BETWEEN_DATA_FRAME_IS_SENT = 10;
 
-    private final DataFrameCreator dataFrameCreator;
-    private final JsonSerializer serializedFrame;
-    private final Sender frameSender;
+    private DataFrameCreator dataFrameCreator;
+    private JsonSerializer serializedFrame;
+    private Sender frameSender;
 
 
     public DataFrameSender(DataFrameCreator dataFrameCreator, JsonSerializer serializedFrame, Sender frameSender) {
@@ -19,17 +19,17 @@ public class DataFrameSender implements Runnable {
 
     @Override
     public void run() {
-        while (!DeviceSubscriber.getListOfDevicesIps().isEmpty()) {
+        while (!DataFrameReceiverDeviceSubscriber.getListOfSubscribedDevicesIpAddresses().isEmpty()) {
             try {
-                TimeUnit.SECONDS.sleep(FRAME_SENDING_INTERVAL_IN_SECONDS);
+                TimeUnit.SECONDS.sleep(TIME_BETWEEN_DATA_FRAME_IS_SENT);
             } catch (InterruptedException e) {
                 FileLogger.logger.error(e.getMessage());
                 e.printStackTrace();
 
             }
-            for (String destinationIpAddress : DeviceSubscriber.getListOfDevicesIps()) {
+            for (String destinationIpAddress : DataFrameReceiverDeviceSubscriber.getListOfSubscribedDevicesIpAddresses()) {
                 DataFrame dataFrame = dataFrameCreator.createDataFrame();
-                frameSender.sendFrame(serializedFrame.createJson(dataFrame), destinationIpAddress, DESTINATION_DATA_PORT_NUMBER);
+                frameSender.sendFrame(serializedFrame.createJson(dataFrame), destinationIpAddress, DESTINATION_PORT_NUMBER);
             }
         }
     }

@@ -93,12 +93,11 @@ public class DeviceSubscriptionServer implements Runnable {
     }
 
     private void subscribeDevice() {
-        if (DeviceSubscriber.getListOfDevicesIps().contains(receivedFrame.getIpAddress())) {
+        if (DataFrameReceiverDeviceSubscriber.getListOfSubscribedDevicesIpAddresses().contains(receivedFrame.getIpAddress())) {
             FileLogger.logger.info(receivedFrame.getIpAddress() + " was already subscribed");
         } else {
-            DeviceSubscriber.addDeviceIp(receivedFrame.getIpAddress());
-            DeviceSubscriber.addDeviceUser(receivedFrame.getUser());
-            FileLogger.logger.info("Dodano urządzenie: " + receivedFrame.getUser() + " with IP address: " + receivedFrame.getIpAddress() + " Ilość subskrybentów IP: " + DeviceSubscriber.getNumberOfDevicesIps());
+            DataFrameReceiverDeviceSubscriber.addDeviceIpToList(receivedFrame.getIpAddress());
+            FileLogger.logger.info("Dodano urządzenie: " + receivedFrame.getUser() + " with IP address: " + receivedFrame.getIpAddress() + " Ilość subskrybentów IP: " + DataFrameReceiverDeviceSubscriber.getNumberOfSubscribedDevices());
 
             if (!isServerAlreadyStarted) {
                 startSendingData();

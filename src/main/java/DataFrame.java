@@ -3,23 +3,23 @@
  * Contains inner Builder class for Object creations
  */
 public class DataFrame extends Frame{
-    private final String currentStop;
-    private final String nextStop;
-    private final String currentSpeed;
+    private final String currentStopName;
+    private final String nextStopName;
+    private final String currentVehicleSpeed;
 
-    private final int passengerStats;
-    private final int boardingStats;
-    private final int unBoardingStats;
+    private final int currentPassengerNumber;
+    private final int boardedPassengersOnLastStation;
+    private final int unBoardedPassengersOnLastStation;
 
 
     public DataFrame(Builder builder) {
         super(builder);
-        this.currentStop = builder.currentStop;
-        this.nextStop = builder.nextStop;
-        this.currentSpeed = builder.currentSpeed;
-        this.passengerStats = builder.passengerStats;
-        this.boardingStats = builder.boardingStats;
-        this.unBoardingStats = builder.unBoardingStats;
+        this.currentStopName = builder.currentStopName;
+        this.nextStopName = builder.nextStopName;
+        this.currentVehicleSpeed = builder.currentVehicleSpeed;
+        this.currentPassengerNumber = builder.currentPassengerNumber;
+        this.boardedPassengersOnLastStation = builder.boardedPassengersOnLastStation;
+        this.unBoardedPassengersOnLastStation = builder.unBoardedPassengersOnLastStation;
     }
 
     public static Builder builder() {
@@ -27,43 +27,43 @@ public class DataFrame extends Frame{
     }
 
     public static class Builder extends Frame.Builder<Builder> {
-        private String currentStop;
-        private String nextStop;
-        private String currentSpeed;
+        private String currentStopName;
+        private String nextStopName;
+        private String currentVehicleSpeed;
 
-        private int passengerStats;
-        private int boardingStats;
-        private int unBoardingStats;
+        private int currentPassengerNumber;
+        private int boardedPassengersOnLastStation;
+        private int unBoardedPassengersOnLastStation;
 
         @Override
         public Builder getThis() {
             return this;
         }
 
-        public Builder currentStop(String currentStop) {
-            this.currentStop = currentStop;
+        public Builder currentStopName(String currentStopName) {
+            this.currentStopName = currentStopName;
             return this;
         }
 
-        public Builder nextStop(String nextStop) {
-            this.nextStop = nextStop;
+        public Builder nextStopName(String nextStopName) {
+            this.nextStopName = nextStopName;
             return this;
         }
 
-        public Builder currentSpeed(String currentSpeed) {
-            this.currentSpeed = currentSpeed;
+        public Builder currentVehicleSpeed(String currentVehicleSpeed) {
+            this.currentVehicleSpeed = currentVehicleSpeed;
             return this;
         }
-        public Builder passengerStats(int passengerStats) {
-            this.passengerStats = passengerStats;
+        public Builder currentPassengerNumber(int currentPassengerNumber) {
+            this.currentPassengerNumber = currentPassengerNumber;
             return this;
         }
-        public Builder boardingStats(int boardingStats) {
-            this.boardingStats = boardingStats;
+        public Builder boardedPassengersOnLastStation(int boardedPassengersOnLastStation) {
+            this.boardedPassengersOnLastStation = boardedPassengersOnLastStation;
             return this;
         }
-        public Builder unBoardingStats(int unBoardingStats) {
-            this.unBoardingStats = unBoardingStats;
+        public Builder unBoardedPassengersOnLastStation(int unBoardedPassengersOnLastStation) {
+            this.unBoardedPassengersOnLastStation = unBoardedPassengersOnLastStation;
             return this;
         }
 
@@ -76,12 +76,12 @@ public class DataFrame extends Frame{
     @Override
     public String toString() {
         return "DataFrame{" +
-                "currentStop='" + currentStop + '\'' +
-                ", nextStop='" + nextStop + '\'' +
-                ", currentSpeed='" + currentSpeed + '\'' +
-                ", passengerStats=" + passengerStats +
-                ", boardingStats=" + boardingStats +
-                ", unBoardingStats=" + unBoardingStats +
+                "currentStopName='" + currentStopName + '\'' +
+                ", nextStopName='" + nextStopName + '\'' +
+                ", currentVehicleSpeed='" + currentVehicleSpeed + '\'' +
+                ", currentPassengerNumber=" + currentPassengerNumber +
+                ", boardedPassengersOnLastStation=" + boardedPassengersOnLastStation +
+                ", unBoardedPassengersOnLastStation=" + unBoardedPassengersOnLastStation +
                 ", appVersion='" + appVersion + '\'' +
                 ", frameType=" + frameType +
                 ", utc=" + utc +
