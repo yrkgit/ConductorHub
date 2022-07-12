@@ -1,5 +1,5 @@
-/**
- * Class for device subscription to Data Frame receivers list. This list is used to when sending vehicle data to end devices.
+package Hub; /**
+ * Class for device subscription to Data Frames.Frame receivers list. This list is used to when sending vehicle data to end devices.
  */
 
 import java.util.ArrayList;

@@ -1,8 +1,10 @@
+package Frames;
+
 /**
- * Class represents frame send by ConductorHub to transfer data like Next stop, Current Speed of vehicle, Passenger Counting System data
+ * Class represents frame send by Hub.ConductorHub to transfer data like Next stop, Current Speed of vehicle, Passenger Counting System data
  * Contains inner Builder class for Object creations
  */
-public class DataFrame extends Frame{
+public class DataFrame extends FrameHeader {
     private final String currentStopName;
     private final String nextStopName;
     private final String currentVehicleSpeed;
@@ -26,7 +28,7 @@ public class DataFrame extends Frame{
         return new Builder();
     }
 
-    public static class Builder extends Frame.Builder<Builder> {
+    public static class Builder extends FrameHeader.Builder<Builder> {
         private String currentStopName;
         private String nextStopName;
         private String currentVehicleSpeed;
@@ -75,7 +77,7 @@ public class DataFrame extends Frame{
 
     @Override
     public String toString() {
-        return "DataFrame{" +
+        return "Frames.DataFrame{" +
                 "currentStopName='" + currentStopName + '\'' +
                 ", nextStopName='" + nextStopName + '\'' +
                 ", currentVehicleSpeed='" + currentVehicleSpeed + '\'' +

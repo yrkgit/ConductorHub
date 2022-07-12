@@ -1,3 +1,5 @@
+package Hub;
+
 public class MySqlConnectionConfig {
 
     private final String dbUserName;

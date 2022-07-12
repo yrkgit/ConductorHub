@@ -1,3 +1,5 @@
+package Hub;
+
 /**
  * Main class, starts na new Thread with Device Subscription Server (awaiting new clients)
  */

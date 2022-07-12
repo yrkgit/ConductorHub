@@ -1,7 +1,9 @@
-/*
+package Hub;/*
 Class to verify user login credentials received in logRequest - checking if pass from user object (created from logRequestFrame) match with password from db for this user
  */
 
+
+import Frames.LogResponseTypes;
 
 public class UserPermissionToLogonVerifier {
 

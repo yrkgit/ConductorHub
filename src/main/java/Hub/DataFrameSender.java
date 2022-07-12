@@ -1,3 +1,8 @@
+package Hub;
+
+import Frames.DataFrame;
+import Frames.DataFrameController;
+
 import java.util.concurrent.TimeUnit;
 
 public class DataFrameSender implements Runnable {

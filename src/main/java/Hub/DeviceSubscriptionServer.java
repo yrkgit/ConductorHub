@@ -1,5 +1,9 @@
+package Hub;
+
+import Frames.*;
+
 /**
- * Runnable class that opening socket (by invoking SocketListener) and starting listening to communication from remote hosts. When get response from SocketListener pass it to JSON deserializer
+ * Runnable class that opening socket (by invoking Hub.SocketListener) and starting listening to communication from remote hosts. When get response from Hub.SocketListener pass it to JSON deserializer
  */
 
 
@@ -10,7 +14,7 @@ public class DeviceSubscriptionServer implements Runnable {
     private static final int destinationLogPortNumber = 7803;
 //TODO Create anonymous inner classes for object used once (from classes with one method)
     private final JsonDeserializer deserializer;
-    private final LogResponseFrameCreator logResponseFrameCreator;
+    private final LogResponseFrameController logResponseFrameController;
     private final JsonSerializer serializedFrame;
     private final Sender frameSender;
     private final SocketListener socketListener;
@@ -19,12 +23,12 @@ public class DeviceSubscriptionServer implements Runnable {
 
    private String content;
     private boolean isServerRunning;
-    private LogRequestFrame receivedFrame;
+    private LogRequestFrameHeader receivedFrame;
     private boolean isServerAlreadyStarted;
 
 
     public DeviceSubscriptionServer() {
-        logResponseFrameCreator = new LogResponseFrameCreator();
+        logResponseFrameController = new LogResponseFrameController();
         deserializer = new JsonDeserializer();
         serializedFrame = new JsonSerializer();
         frameSender = new StringToDeviceSender();
@@ -68,12 +72,12 @@ public class DeviceSubscriptionServer implements Runnable {
     }
 
     private LogResponseFrame prepareLogResponseFrame() {
-        LogResponseFrame logResponseFrame = logResponseFrameCreator.createResponseFrame();
+        LogResponseFrame logResponseFrame = logResponseFrameController.createResponseFrame();
         frameSender.sendFrame(serializedFrame.createJson(logResponseFrame), receivedFrame.getIpAddress(), destinationLogPortNumber);
         return logResponseFrame;
     }
 
-    private void setPermission(LogRequestFrame receivedFrame) {
+    private void setPermission(LogRequestFrameHeader receivedFrame) {
         LogResponseTypes userAccessPermission = userVerifier.verifyUserAccessPermission(
                 new User.UserBuilder()
                         .name(receivedFrame.getUser())
@@ -81,7 +85,7 @@ public class DeviceSubscriptionServer implements Runnable {
                         .build()
                 ,mySqlDatabase);
 
-        logResponseFrameCreator.setResponseType(userAccessPermission);
+        logResponseFrameController.setResponseType(userAccessPermission);
     }
 
     private void subscribeDevice() {

@@ -1,3 +1,6 @@
+import Frames.DataFrame;
+import Frames.DataFrameController;
+import Frames.FrameTypes;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,10 +19,10 @@ class JsonSerializerTest {
 
     @Test
     void createJsonFrameVersionTest() {
-        assertEquals("1.0", dataFrame.appVersion, "Version should be 1.0");
+        assertEquals("1.0", dataFrame.getAppVersion(), "Version should be 1.0");
     }@Test
     void createJsonFrameTypeTest() {
-        assertEquals(FrameTypes.DATA, dataFrame.frameType, "Type should be DATA");
+        assertEquals(FrameTypes.DATA, dataFrame.getFrameType(), "Type should be DATA");
     }
 
     @Test

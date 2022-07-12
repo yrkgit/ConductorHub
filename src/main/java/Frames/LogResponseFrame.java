@@ -1,8 +1,10 @@
+package Frames;
+
 /**
- * Class LogRequestFrame represents frame send by ConductorHub as a response to LogRequestFrame with permission status
+ * Class Frames.LogRequestFrame represents frame send by Hub.ConductorHub as a response to Frames.LogRequestFrame with permission status
  * */
 
-public class LogResponseFrame extends Frame {
+public class LogResponseFrame extends FrameHeader {
     private LogResponseTypes permission;
 
 
@@ -16,7 +18,7 @@ public class LogResponseFrame extends Frame {
         return new Builder();
     }
 
-    public static class Builder extends Frame.Builder<Builder> {
+    public static class Builder extends FrameHeader.Builder<Builder> {
         private LogResponseTypes permission;
 
 
@@ -38,7 +40,7 @@ public class LogResponseFrame extends Frame {
 
     @Override
     public String toString() {
-        return "LogResponseFrame{" +
+        return "Frames.LogResponseFrame{" +
                 "permission=" + permission +
                 ", appVersion='" + appVersion + '\'' +
                 ", frameType=" + frameType +
