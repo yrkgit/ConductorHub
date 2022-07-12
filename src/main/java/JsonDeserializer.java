@@ -11,15 +11,14 @@ public class JsonDeserializer {
     }
 
     public LogRequestFrame deserializeJsonToLogRequestFrameObject(String content) {
-        try{
+        try {
             frame = gson.fromJson(content, Frame.class);
-            FileLogger.logger.info("Deserialization: "+ frame.toString());
-        }catch (Exception e){
+            FileLogger.logger.info("Deserialization: " + frame.toString());
+        } catch (Exception e) {
             FileLogger.logger.error(e.getMessage());
             e.printStackTrace();
         }
-
-/*Checking type of frame */
+        /*Checking type of frame */
         if (frame.frameType.equals(FrameTypes.LOGREQUEST)) {
             return deserializeToLogRequestFrame(content);
         }

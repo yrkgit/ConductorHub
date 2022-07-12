@@ -5,13 +5,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class JsonSerializerTest {
 
-    DataFrameCreator dataFrameCreator;
+    DataFrameController dataFrameController;
     DataFrame dataFrame;
 
     @BeforeEach
     void beforeEach() {
-        dataFrameCreator = new DataFrameCreator();
-        dataFrame = dataFrameCreator.createDataFrame();
+        dataFrameController = new DataFrameController();
+        dataFrame = dataFrameController.createDataFrame();
     }
 
     @Test

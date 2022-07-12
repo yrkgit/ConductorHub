@@ -29,16 +29,8 @@ public class DeviceSubscriptionServer implements Runnable {
         serializedFrame = new JsonSerializer();
         frameSender = new StringToDeviceSender();
         socketListener = new SocketListener();
-        isServerRunning = true;
         userVerifier=new UserPermissionToLogonVerifier();
         mySqlDatabase = new MySqlDatabase();
-    }
-
-    public void stopServer() {
-        isServerRunning = false;
-    }
-
-    public void startServer() {
         isServerRunning = true;
     }
 
@@ -93,11 +85,11 @@ public class DeviceSubscriptionServer implements Runnable {
     }
 
     private void subscribeDevice() {
-        if (DataFrameReceiverDeviceSubscriber.getListOfSubscribedDevicesIpAddresses().contains(receivedFrame.getIpAddress())) {
+        if (DeviceSubscriber.getListOfSubscribedDevicesIpAddresses().contains(receivedFrame.getIpAddress())) {
             FileLogger.logger.info(receivedFrame.getIpAddress() + " was already subscribed");
         } else {
-            DataFrameReceiverDeviceSubscriber.addDeviceIpToList(receivedFrame.getIpAddress());
-            FileLogger.logger.info("Dodano urządzenie: " + receivedFrame.getUser() + " with IP address: " + receivedFrame.getIpAddress() + " Ilość subskrybentów IP: " + DataFrameReceiverDeviceSubscriber.getNumberOfSubscribedDevices());
+            DeviceSubscriber.addDeviceIpToList(receivedFrame.getIpAddress());
+            FileLogger.logger.info("Dodano urządzenie: " + receivedFrame.getUser() + " with IP address: " + receivedFrame.getIpAddress() + " Ilość subskrybentów IP: " + DeviceSubscriber.getNumberOfSubscribedDevices());
 
             if (!isServerAlreadyStarted) {
                 startSendingData();
@@ -107,7 +99,7 @@ public class DeviceSubscriptionServer implements Runnable {
 
     private void startSendingData() {
         isServerAlreadyStarted = true;
-        Thread dataFrameCreatorThread = new Thread(new DataFrameSender(new DataFrameCreator(),new JsonSerializer(),new StringToDeviceSender()));
+        Thread dataFrameCreatorThread = new Thread(new DataFrameSender(new DataFrameController(),new JsonSerializer(),new StringToDeviceSender()));
         dataFrameCreatorThread.start();
     }
 }

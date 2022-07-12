@@ -1,4 +1,6 @@
-/** Class LogRequestFrame represents frame send by ConductorHub as a response to LogRequestFrame with permission status */
+/**
+ * Class LogRequestFrame represents frame send by ConductorHub as a response to LogRequestFrame with permission status
+ * */
 
 public class LogResponseFrame extends Frame {
     private LogResponseTypes permission;
