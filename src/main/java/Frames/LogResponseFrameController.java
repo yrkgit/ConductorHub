@@ -1,13 +1,12 @@
 import java.time.Instant;
 
-public class LogResponseFrameCreator {
+public class LogResponseFrameController {
 
     private final String appVersion;
     private final FrameTypes frameType;
-    private  LogResponseTypes responseType;
+    private LogResponseTypes responseType;
 
-    //TODO - only to test
-    public LogResponseFrameCreator() {
+    public LogResponseFrameController() {
         appVersion = "1.0";
         frameType = FrameTypes.LOGRESPONSE;
         responseType = LogResponseTypes.DENIED;

@@ -1,16 +1,18 @@
+package Frames;
+
 /**
- * Class represents base (header) of frames used in communication between ConductorHub and (subscribed) Devices
- * Describe basic frame parameters with all frame must have: version of the application, type of frame (based on FrameTypes Enum) and time of frame creation
+ * Class represents base (header) of frames used in communication between Hub.ConductorHub and (subscribed) Devices
+ * Describe basic frame parameters which all frame must have: version of the application, type of frame (based on Frames.FrameTypes Enum) and time of frame creation
  * Contains inner Builder class for Object creations
  */
 
-public class Frame {
+public class FrameHeader {
     protected String appVersion;
     protected FrameTypes frameType;
 
     protected long utc;
 
-    protected Frame(Builder<?> builder) {
+    protected FrameHeader(Builder<?> builder) {
         this.appVersion = builder.appVersion;
         this.frameType = builder.frameType;
         this.utc = builder.utc;
@@ -49,15 +51,26 @@ public class Frame {
             return this.getThis();
         }
 
-        public Frame build() {
-            return new Frame(this);
+        public FrameHeader build() {
+            return new FrameHeader(this);
         }
     }
 
+    public String getAppVersion() {
+        return appVersion;
+    }
+
+    public FrameTypes getFrameType() {
+        return frameType;
+    }
+
+    public long getUtc() {
+        return utc;
+    }
 
     @Override
     public String toString() {
-        return "Frame{" +
+        return "Frames.Frame{" +
                 "appVersion='" + appVersion + '\'' +
                 ", frameType=" + frameType +
                 ", utc=" + utc +

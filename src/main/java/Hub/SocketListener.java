@@ -1,6 +1,8 @@
-/**
+package Hub; /**
  * Class design to open and listen socket connection
  */
+
+import Hub.FileLogger;
 
 import java.io.BufferedReader;
 import java.io.IOException;

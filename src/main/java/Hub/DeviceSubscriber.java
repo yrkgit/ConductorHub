@@ -1,10 +1,10 @@
-/**
- * Class for device subscription to list od Data Frame receivers
+package Hub; /**
+ * Class for device subscription to Data Frames.Frame receivers list. This list is used to when sending vehicle data to end devices.
  */
 
 import java.util.ArrayList;
 
-public class DataFrameReceiverDeviceSubscriber {
+public class DeviceSubscriber {
     private static ArrayList<String> listOfSubscribedDevicesIpAddresses = new ArrayList<>();
 
     public static void addDeviceIpToList(String deviceIp){

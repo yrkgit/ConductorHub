@@ -1,3 +1,5 @@
+package Hub;
+
 public interface Database {
 
     void connect(MySqlConnectionConfig mySqlConnectionConfig);

@@ -1,4 +1,6 @@
-import org.junit.jupiter.api.*;
+import Hub.SocketListener;
+import Hub.StringToDeviceSender;
+import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.TimeUnit;
 
@@ -19,7 +21,6 @@ class SocketListenerTest implements Runnable {
     void startSocketListenerTest() {
         Thread thread = new Thread(new SocketListenerTest());
         thread.start();
-
         stringToDeviceSender();
         try {
             TimeUnit.SECONDS.sleep(2);

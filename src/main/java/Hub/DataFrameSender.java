@@ -1,3 +1,8 @@
+package Hub;
+
+import Frames.DataFrame;
+import Frames.DataFrameController;
+
 import java.util.concurrent.TimeUnit;
 
 public class DataFrameSender implements Runnable {
@@ -6,20 +11,20 @@ public class DataFrameSender implements Runnable {
     private static final int DESTINATION_PORT_NUMBER = 7802;
     private static final int TIME_BETWEEN_DATA_FRAME_IS_SENT = 10;
 
-    private DataFrameCreator dataFrameCreator;
+    private DataFrameController dataFrameController;
     private JsonSerializer serializedFrame;
     private Sender frameSender;
 
 
-    public DataFrameSender(DataFrameCreator dataFrameCreator, JsonSerializer serializedFrame, Sender frameSender) {
-        this.dataFrameCreator = dataFrameCreator;
+    public DataFrameSender(DataFrameController dataFrameController, JsonSerializer serializedFrame, Sender frameSender) {
+        this.dataFrameController = dataFrameController;
         this.serializedFrame = serializedFrame;
         this.frameSender = frameSender;
     }
 
     @Override
     public void run() {
-        while (!DataFrameReceiverDeviceSubscriber.getListOfSubscribedDevicesIpAddresses().isEmpty()) {
+        while (!DeviceSubscriber.getListOfSubscribedDevicesIpAddresses().isEmpty()) {
             try {
                 TimeUnit.SECONDS.sleep(TIME_BETWEEN_DATA_FRAME_IS_SENT);
             } catch (InterruptedException e) {
@@ -27,8 +32,8 @@ public class DataFrameSender implements Runnable {
                 e.printStackTrace();
 
             }
-            for (String destinationIpAddress : DataFrameReceiverDeviceSubscriber.getListOfSubscribedDevicesIpAddresses()) {
-                DataFrame dataFrame = dataFrameCreator.createDataFrame();
+            for (String destinationIpAddress : DeviceSubscriber.getListOfSubscribedDevicesIpAddresses()) {
+                DataFrame dataFrame = dataFrameController.createDataFrame();
                 frameSender.sendFrame(serializedFrame.createJson(dataFrame), destinationIpAddress, DESTINATION_PORT_NUMBER);
             }
         }

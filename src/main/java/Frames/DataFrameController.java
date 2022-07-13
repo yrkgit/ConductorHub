@@ -1,6 +1,13 @@
+package Frames;
+/**
+ * Class used to build Frames.DataFrame filled with current vehicle data and parameters received from other systems (TCMS, SIP)
+ * */
+
+import Hub.FileLogger;
+
 import java.time.Instant;
 
-public class DataFrameCreator {
+public class DataFrameController {
 
     private final String currentStopName;
     private final String nextStopName;
@@ -11,7 +18,7 @@ public class DataFrameCreator {
     private final int unBoardedPassengersOnLastStation;
 
     //TODO - do testów / usunąć
-    DataFrameCreator() {
+    public DataFrameController() {
         currentStopName = "Bydgoszcz Główna";
         nextStopName = "Bydgoszcz Wschód";
         currentVehicleSpeed = "100";
