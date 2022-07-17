@@ -1,6 +1,6 @@
 import Hub.SocketListener;
 import Hub.StringToDeviceSender;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.util.concurrent.TimeUnit;
 

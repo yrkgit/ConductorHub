@@ -7,10 +7,10 @@ public class ConductorHub {
 
     private static final ConductorHub conductorHub;
 
-
     static {
         conductorHub = new ConductorHub();
     }
+
 
     public static void main(String[] args) {
         conductorHub.startConductorHub();

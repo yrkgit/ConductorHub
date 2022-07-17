@@ -1,6 +1,9 @@
+import Frames.FrameTypes;
+import Frames.LogRequestFrame;
+import Hub.JsonDeserializer;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -23,14 +26,14 @@ class JsonDeserializerTest {
     @Test
     @DisplayName("Checking frame not null after deserializing from JSON")
     void deserializeJsonToLogRequestFrameObjectNotNullTest() {
-        LogRequestFrameHeader logRequestFrame = jsonDeserializer.deserializeJsonToLogRequestFrameObject(receivedStringToTest);
+        LogRequestFrame logRequestFrame = jsonDeserializer.deserializeJsonToLogRequestFrameObject(receivedStringToTest);
         assertNotNull(logRequestFrame);
     }
 
     @Test
     @DisplayName("Checking frame type after deserializing from JSON")
     void deserializeJsonToLogRequestFrameObjectTest() {
-        LogRequestFrameHeader logRequestFrame = jsonDeserializer.deserializeJsonToLogRequestFrameObject(receivedStringToTest);
+        LogRequestFrame logRequestFrame = jsonDeserializer.deserializeJsonToLogRequestFrameObject(receivedStringToTest);
         assert (logRequestFrame.getFrameType().equals(FrameTypes.LOGREQUEST));
     }
 }

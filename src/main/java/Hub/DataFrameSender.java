@@ -34,7 +34,7 @@ public class DataFrameSender implements Runnable {
             }
             for (String destinationIpAddress : DeviceSubscriber.getListOfSubscribedDevicesIpAddresses()) {
                 DataFrame dataFrame = dataFrameController.createDataFrame();
-                frameSender.sendFrame(serializedFrame.createJson(dataFrame), destinationIpAddress, DESTINATION_PORT_NUMBER);
+                frameSender.sendFrame(serializedFrame.createJsonFromFrame(dataFrame), destinationIpAddress, DESTINATION_PORT_NUMBER);
             }
         }
     }

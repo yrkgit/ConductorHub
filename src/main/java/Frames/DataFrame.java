@@ -4,7 +4,7 @@ package Frames;
  * Class represents frame send by Hub.ConductorHub to transfer data like Next stop, Current Speed of vehicle, Passenger Counting System data
  * Contains inner Builder class for Object creations
  */
-public class DataFrame extends FrameHeader {
+public class DataFrame extends Frame {
     private final String currentStopName;
     private final String nextStopName;
     private final String currentVehicleSpeed;
@@ -28,7 +28,7 @@ public class DataFrame extends FrameHeader {
         return new Builder();
     }
 
-    public static class Builder extends FrameHeader.Builder<Builder> {
+    public static class Builder extends Frame.Builder<Builder> {
         private String currentStopName;
         private String nextStopName;
         private String currentVehicleSpeed;

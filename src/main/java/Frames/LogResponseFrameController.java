@@ -1,3 +1,7 @@
+package Frames;
+
+import Hub.FileLogger;
+
 import java.time.Instant;
 
 public class LogResponseFrameController {

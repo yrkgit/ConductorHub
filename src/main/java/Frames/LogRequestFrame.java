@@ -4,12 +4,12 @@ package Frames;
  * Class represents frame send by remote device to authenticate user and subscribe to Hub.ConductorHub if permission granted
  */
 
-public class LogRequestFrameHeader extends FrameHeader {
+public class LogRequestFrame extends Frame {
     private String user;
     private String pass;
     private String ipAddress;
 
-    public LogRequestFrameHeader(Builder builder) {
+    public LogRequestFrame(Builder builder) {
         super(builder);
         this.user = builder.user;
         this.pass = builder.pass;
@@ -20,7 +20,7 @@ public class LogRequestFrameHeader extends FrameHeader {
         return new Builder();
     }
 
-    public static class Builder extends FrameHeader.Builder<Builder> {
+    public static class Builder extends Frame.Builder<Builder> {
         private String user;
         private String pass;
         private String ipAddress;
@@ -45,8 +45,8 @@ public class LogRequestFrameHeader extends FrameHeader {
             return this;
         }
 
-        public LogRequestFrameHeader build() {
-            return new LogRequestFrameHeader(this);
+        public LogRequestFrame build() {
+            return new LogRequestFrame(this);
         }
     }
 

@@ -6,13 +6,13 @@ package Frames;
  * Contains inner Builder class for Object creations
  */
 
-public class FrameHeader {
+public class Frame {
     protected String appVersion;
     protected FrameTypes frameType;
 
     protected long utc;
 
-    protected FrameHeader(Builder<?> builder) {
+    protected Frame(Builder<?> builder) {
         this.appVersion = builder.appVersion;
         this.frameType = builder.frameType;
         this.utc = builder.utc;
@@ -51,8 +51,8 @@ public class FrameHeader {
             return this.getThis();
         }
 
-        public FrameHeader build() {
-            return new FrameHeader(this);
+        public Frame build() {
+            return new Frame(this);
         }
     }
 

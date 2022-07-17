@@ -1,36 +1,42 @@
 package Hub;
 
-import Frames.FrameHeader;
+import Frames.Frame;
 import Frames.FrameTypes;
-import Frames.LogRequestFrameHeader;
+import Frames.LogRequestFrame;
 import com.google.gson.Gson;
 
 public class JsonDeserializer {
 
 
     private Gson gson;
-    private FrameHeader frameHeader;
+    private Frame frame;
 
     public JsonDeserializer() {
         gson = new Gson();
     }
 
-    public LogRequestFrameHeader deserializeJsonToLogRequestFrameObject(String content) {
+    public LogRequestFrame deserializeJsonToLogRequestFrameObject(String content) {
         try {
-            frameHeader = gson.fromJson(content, FrameHeader.class);
-            FileLogger.logger.info("Deserialization: " + frameHeader.toString());
+            frame = gson.fromJson(content, Frame.class);
+            FileLogger.logger.info("Deserialization: " + frame.toString());
         } catch (Exception e) {
             FileLogger.logger.error(e.getMessage());
             e.printStackTrace();
         }
-        /*Checking type of frame */
-        if (frameHeader.getFrameType().equals(FrameTypes.LOGREQUEST)) {
+        if (checkIfFrameTypeIsLogRequest(content)) {
             return deserializeToLogRequestFrame(content);
         }
         return null;
     }
 
-    private LogRequestFrameHeader deserializeToLogRequestFrame(String content) {
-        return gson.fromJson(content, LogRequestFrameHeader.class);
+    private boolean checkIfFrameTypeIsLogRequest(String content) {
+        if (frame.getFrameType().equals(FrameTypes.LOGREQUEST)) {
+            return true;
+        }
+        return false;
+    }
+
+    private LogRequestFrame deserializeToLogRequestFrame(String content) {
+        return gson.fromJson(content, LogRequestFrame.class);
     }
 }

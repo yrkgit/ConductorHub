@@ -23,7 +23,7 @@ public class DeviceSubscriptionServer implements Runnable {
 
    private String content;
     private boolean isServerRunning;
-    private LogRequestFrameHeader receivedFrame;
+    private LogRequestFrame receivedFrame;
     private boolean isServerAlreadyStarted;
 
 
@@ -73,11 +73,11 @@ public class DeviceSubscriptionServer implements Runnable {
 
     private LogResponseFrame prepareLogResponseFrame() {
         LogResponseFrame logResponseFrame = logResponseFrameController.createResponseFrame();
-        frameSender.sendFrame(serializedFrame.createJson(logResponseFrame), receivedFrame.getIpAddress(), destinationLogPortNumber);
+        frameSender.sendFrame(serializedFrame.createJsonFromFrame(logResponseFrame), receivedFrame.getIpAddress(), destinationLogPortNumber);
         return logResponseFrame;
     }
 
-    private void setPermission(LogRequestFrameHeader receivedFrame) {
+    private void setPermission(LogRequestFrame receivedFrame) {
         LogResponseTypes userAccessPermission = userVerifier.verifyUserAccessPermission(
                 new User.UserBuilder()
                         .name(receivedFrame.getUser())

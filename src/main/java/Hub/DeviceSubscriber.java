@@ -5,7 +5,11 @@ package Hub; /**
 import java.util.ArrayList;
 
 public class DeviceSubscriber {
-    private static ArrayList<String> listOfSubscribedDevicesIpAddresses = new ArrayList<>();
+    private static ArrayList<String> listOfSubscribedDevicesIpAddresses;
+
+    static {
+        listOfSubscribedDevicesIpAddresses = new ArrayList<>();
+    }
 
     public static void addDeviceIpToList(String deviceIp){
         listOfSubscribedDevicesIpAddresses.add(deviceIp);
