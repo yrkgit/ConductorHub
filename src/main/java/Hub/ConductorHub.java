@@ -1,5 +1,7 @@
 package Hub;
 
+import subscription.DeviceSubscriptionServer;
+
 /**
  * Main class, starts na new Thread with Device Subscription Server (awaiting new clients)
  */

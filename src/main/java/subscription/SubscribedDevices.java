@@ -1,10 +1,10 @@
-package Hub; /**
+package subscription; /**
  * Class for device subscription to Data Frames.Frame receivers list. This list is used to when sending vehicle data to end devices.
  */
 
 import java.util.ArrayList;
 
-public class DeviceSubscriber {
+public class SubscribedDevices {
     private static ArrayList<String> listOfSubscribedDevicesIpAddresses;
 
     static {

@@ -2,6 +2,7 @@ package Hub;
 
 import Frames.DataFrame;
 import Frames.DataFrameController;
+import subscription.SubscribedDevices;
 
 import java.util.concurrent.TimeUnit;
 
@@ -24,7 +25,7 @@ public class DataFrameSender implements Runnable {
 
     @Override
     public void run() {
-        while (!DeviceSubscriber.getListOfSubscribedDevicesIpAddresses().isEmpty()) {
+        while (!SubscribedDevices.getListOfSubscribedDevicesIpAddresses().isEmpty()) {
             try {
                 TimeUnit.SECONDS.sleep(TIME_BETWEEN_DATA_FRAME_IS_SENT);
             } catch (InterruptedException e) {
@@ -32,7 +33,7 @@ public class DataFrameSender implements Runnable {
                 e.printStackTrace();
 
             }
-            for (String destinationIpAddress : DeviceSubscriber.getListOfSubscribedDevicesIpAddresses()) {
+            for (String destinationIpAddress : SubscribedDevices.getListOfSubscribedDevicesIpAddresses()) {
                 DataFrame dataFrame = dataFrameController.createDataFrame();
                 frameSender.sendFrame(serializedFrame.createJsonFromFrame(dataFrame), destinationIpAddress, DESTINATION_PORT_NUMBER);
             }
